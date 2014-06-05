@@ -19,3 +19,10 @@
 *.exe
 *.out
 *.app
+
+# Netbeans stuff and stuff
+build/
+dist/
+nbproject/private/
+
+*.dep.inc
