@@ -8,25 +8,18 @@
 #include <string>
 #include "DamageBot.h"
 
-DamageBot::DamageBot(char* _nick, char* _user, char* _host, int _port) {
+DamageBot::DamageBot(const char* _nick, const char* _user) {
     this->nick = _nick;
     this->user = _user;
-    this->host = _host;
-    this->port = _port;
     this->activeChannel = 0;
 }
 
 void DamageBot::init() {
-    this->con = new Connection(this->host, this->port);
-    if(this->con->makeConnection() == -1) {
-        // TODO: Should ne somethign mroe graceful right there...
-        // NOTE: If error occured, makeConnection already mentioned it to stderr
-        exit(-1); // FAIL
-    }
+    this->con = Connection::instance();
 }
 
 void DamageBot::doPong(std::string& message) {
-    size_t pingPos = message.find("PING");
+    int pingPos = message.find("PING");
     if(pingPos != std::string::npos) {
         std::string pong("PONG"+message.substr(pingPos+4)+"\r\n");
         this->con->sendMessage(pong.c_str());
@@ -34,7 +27,7 @@ void DamageBot::doPong(std::string& message) {
 }
 
 void DamageBot::sendChannelMessage(std::string& message) {
-    std::string toSend("PRIVMSG #channel :"+message+"\r\n");
+    std::string toSend("PRIVMSG #"+this->activeChannel+" :"+message+"\r\n");
     this->con->sendMessage(toSend.c_str());
 }
 

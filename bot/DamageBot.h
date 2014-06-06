@@ -13,9 +13,7 @@
 
 class DamageBot {
 public:
-    DamageBot(char* _nick, char* _user, char* host, int port);
-//    virtual ~DamageBot();
-    bool setup;
+    DamageBot(const char* _nick, const char* _user);
     
     /**
      * Initialise the bot, connect to the server that was passed in the constructor
@@ -32,10 +30,8 @@ public:
     bool charSearch(char *haystack, char *needle);
  
 private:
-    char* nick;
-    char* user;
-    char* host;
-    int port;
+    const char* nick;
+    const char* user;
     Connection* con;
     
     // Channels we're connected to

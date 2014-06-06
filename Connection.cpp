@@ -2,9 +2,11 @@
 
 #include "Connection.h"
 
-Connection::Connection(char* host, int port) {
+Connection::Connection(const char* host, int port) {
     this->host = host;
     this->port = port;
+    _isConnected = makeConnection() > 0;
+    
 }
 
 int Connection::makeConnection() {
@@ -41,8 +43,8 @@ int Connection::makeConnection() {
     
     sockaddr_in sockIn;
     memset((char*)&sockIn, 0, sizeof(sockIn));
-    sockIn.sin_family = AF_INET; // ipv4
     memcpy((char*)&sockIn.sin_addr, hp->h_addr, hp->h_length);
+    sockIn.sin_family = AF_INET; // ipv4
     sockIn.sin_port = htons(this->port); // port in tcp/ip byte order (big endian))
     memset(&(sockIn.sin_zero), 0, 8 * sizeof(char));
     if(connect(this->socketId, (sockaddr*)&sockIn, sizeof(sockIn)) == -1) {
@@ -61,6 +63,10 @@ void Connection::closeConnection() {
 #else
     close(this->socketId);
 #endif
+}
+
+bool Connection::isConnected() {
+    return _isConnected;
 }
 
 void Connection::sendMessage(const char* message) {
