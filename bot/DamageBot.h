@@ -9,6 +9,8 @@
 #define	DAMAGEBOT_H
 #include "../Connection.h"
 
+#include <list>
+
 class DamageBot {
 public:
     DamageBot(char* _nick, char* _user, char* host, int port);
@@ -38,7 +40,7 @@ private:
     
     // Channels we're connected to
     std::list<std::string> channels;
-    std::string& activeChannel;
+    std::string* activeChannel;
     
     /**
      * Sends a message to the currently active channel

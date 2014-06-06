@@ -36,6 +36,7 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 # Object Files
 OBJECTFILES= \
 	${OBJECTDIR}/Connection.o \
+	${OBJECTDIR}/PropertiesReader.o \
 	${OBJECTDIR}/bot/DamageBot.o \
 	${OBJECTDIR}/main.o
 
@@ -62,12 +63,17 @@ LDLIBSOPTIONS=-lws2_32
 
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/damagebot.exe: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
-	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/damagebot ${OBJECTFILES} ${LDLIBSOPTIONS}
+	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/damagebot ${OBJECTFILES} ${LDLIBSOPTIONS} -static-libgcc -static-libstdc++ -static
 
 ${OBJECTDIR}/Connection.o: Connection.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Connection.o Connection.cpp
+
+${OBJECTDIR}/PropertiesReader.o: PropertiesReader.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/PropertiesReader.o PropertiesReader.cpp
 
 ${OBJECTDIR}/bot/DamageBot.o: bot/DamageBot.cpp 
 	${MKDIR} -p ${OBJECTDIR}/bot

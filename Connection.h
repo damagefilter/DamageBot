@@ -41,7 +41,7 @@ public:
     int makeConnection();
     
     /**
-     * CLoses the stream socket and releases the resource handle
+     * Closes the stream socket and releases the resource handle
      */
     void closeConnection();
     
@@ -50,6 +50,10 @@ public:
      * @param message the message to send
      */
     void sendMessage(const char* message);
+private:
+    
+    Connection(const Connection& c);
+    void operator=(const Connection& c);
 };
 
 #endif	/* CONNECTION_H */

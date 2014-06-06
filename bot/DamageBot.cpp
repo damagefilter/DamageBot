@@ -13,6 +13,7 @@ DamageBot::DamageBot(char* _nick, char* _user, char* _host, int _port) {
     this->user = _user;
     this->host = _host;
     this->port = _port;
+    this->activeChannel = 0;
 }
 
 void DamageBot::init() {

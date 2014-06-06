@@ -36,6 +36,7 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 # Object Files
 OBJECTFILES= \
 	${OBJECTDIR}/Connection.o \
+	${OBJECTDIR}/PropertiesReader.o \
 	${OBJECTDIR}/bot/DamageBot.o \
 	${OBJECTDIR}/main.o
 
@@ -68,6 +69,11 @@ ${OBJECTDIR}/Connection.o: Connection.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Connection.o Connection.cpp
+
+${OBJECTDIR}/PropertiesReader.o: PropertiesReader.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/PropertiesReader.o PropertiesReader.cpp
 
 ${OBJECTDIR}/bot/DamageBot.o: bot/DamageBot.cpp 
 	${MKDIR} -p ${OBJECTDIR}/bot
