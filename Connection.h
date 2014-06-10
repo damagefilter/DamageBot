@@ -35,7 +35,7 @@ private:
 #endif
     
 public:
-    
+    static const int MAX_BUFFER_SIZE = 4096;
     /**
      * Get the connection instance
      * @return the connection instance
@@ -56,6 +56,11 @@ public:
      */
     void closeConnection();
     
+    
+    /**
+     * Check if this Connection is properly connected to the endpoint
+     * @return 
+     */
     bool isConnected();
     
     /**
@@ -63,6 +68,12 @@ public:
      * @param message the message to send
      */
     void sendMessage(const char* message);
+    
+    /**
+     * Reads from the stream socket and fills the given buffer with data
+     * @param buffer
+     */
+    void read(char* buffer);
 private:
     Connection(const char* host, int port);
     Connection(const Connection& c);

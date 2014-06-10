@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <iostream>
 
 #include "Connection.h"
 
@@ -71,5 +72,13 @@ bool Connection::isConnected() {
 
 void Connection::sendMessage(const char* message) {
     // socket id, message, message size, send flags
+    std::cout << "SENDING: " << message << std::endl;
     send(this->socketId, message, strlen(message), 0);
+}
+
+void Connection::read(char* buffer) {
+    if (recv(this->socketId, buffer, Connection::MAX_BUFFER_SIZE * sizeof (char), 0) < 0) {
+        perror("Failed to read from stream socket ...");
+    }
+
 }

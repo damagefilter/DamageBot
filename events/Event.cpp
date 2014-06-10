@@ -7,12 +7,4 @@
 
 #include "Event.h"
 
-Event::Event() {
-}
-
-Event::Event(const Event& orig) {
-}
-
-Event::~Event() {
-}
 

@@ -13,7 +13,7 @@
 
 class DamageBot {
 public:
-    DamageBot(const char* _nick, const char* _user);
+    DamageBot(const char* _nick, const char* _user, const char* _owner);
     
     /**
      * Initialise the bot, connect to the server that was passed in the constructor
@@ -28,15 +28,6 @@ public:
      * @return 
      */
     bool charSearch(char *haystack, char *needle);
- 
-private:
-    const char* nick;
-    const char* user;
-    Connection* con;
-    
-    // Channels we're connected to
-    std::list<std::string> channels;
-    std::string activeChannel;
     
     /**
      * Sends a message to the currently active channel
@@ -64,6 +55,8 @@ private:
      */
     void login(const char* password);
     
+    void processMessage();
+    
     /**
      * Joins a new channel
      * @param channel
@@ -75,7 +68,16 @@ private:
      * @param channel
      */
     void partChannel(std::string& channel);
-
+ 
+private:
+    char messageBuffer[Connection::MAX_BUFFER_SIZE];
+    const char* nick;
+    const char* user;
+    const char* owner;
+    Connection* con;
+    // Channels we're connected to
+    std::list<std::string> channels;
+    std::string activeChannel;
 };
 
 #endif	/* DAMAGEBOT_H */

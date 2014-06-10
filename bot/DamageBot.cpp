@@ -6,12 +6,14 @@
  */
 
 #include <string>
+#include <iostream>
 #include "DamageBot.h"
 
-DamageBot::DamageBot(const char* _nick, const char* _user) {
+DamageBot::DamageBot(const char* _nick, const char* _user, const char* _owner) {
     this->nick = _nick;
     this->user = _user;
-    this->activeChannel;
+    this->owner = _owner;
+//    this->activeChannel;
 }
 
 void DamageBot::init() {
@@ -51,6 +53,16 @@ void DamageBot::sendPrivateMessage(std::string& message, std::string& user) {
     std::string toSend("PRIVMSG "+user+" :"+message+"\r\n");
     this->con->sendMessage(toSend.c_str());
 }
+
+void DamageBot::processMessage() {
+    // Empty the string
+    memset(&messageBuffer[0], 0, sizeof(messageBuffer));
+    this->con->read(messageBuffer);
+    std::cout << messageBuffer << std::endl;
+    std::string stringBuffer(messageBuffer);
+    doPong(stringBuffer);
+}
+
 
 
 void DamageBot::joinChannel(std::string& channel) {

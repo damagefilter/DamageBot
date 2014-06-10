@@ -10,15 +10,17 @@
 
 class Event {
 public:
-    Event();
-    Event(const Event& orig);
-    virtual ~Event();
     enum EventType {
         STANDARD_CHAT,
+        PRIVATE_CHAT,
         USER_JOIN,
         USER_PART
     };
-private:
+    
+    EventType getType() {
+        return type;
+    }
+protected:
     EventType type;
 };
 
