@@ -36,7 +36,7 @@ private:
     
     // Channels we're connected to
     std::list<std::string> channels;
-    std::string* activeChannel;
+    std::string activeChannel;
     
     /**
      * Sends a message to the currently active channel
@@ -56,6 +56,13 @@ private:
      * @param message
      */
     void doPong(std::string& message);
+    
+    /**
+     * Does the login honky tonky at the connected IRC server
+     * @param password  the password to authenticate at a nickserv.
+     *                  pass 0 to not do nickserv auth
+     */
+    void login(const char* password);
     
     /**
      * Joins a new channel

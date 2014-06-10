@@ -40,7 +40,7 @@ float PropertiesReader::getFloat(const char* key) {
 
 const char* PropertiesReader::getString(const char* key) {
     if(!containsKey(key)) {
-        return (const char*)"key not found";
+        return "key not found";
     }
     return this->data[key].c_str();
 }
