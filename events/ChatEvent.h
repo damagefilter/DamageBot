@@ -44,6 +44,7 @@ private:
     std::string host;
     std::string message;
     std::string command;
+    std::string recipient;
     bool isPrivateChat; // This it is when the receiver does not start with # (is not a channel)
     
     // TODO: Move this into an IRCHelper class or something.
@@ -78,7 +79,7 @@ private:
         if(_prefix != "\0") {
             // This should always be set but according to IRC protocol, this appears to be optional ... hu
             std::vector<std::string> userAndHost = StringLib::split(_prefix, '!'); 
-            this->user = userAndHost[0]; // First element is udername according to format user!user@host
+            this->user = userAndHost[0]; // First element is username according to format user!user@host
             this->host = userAndHost[1].substr(userAndHost[1].find("@")); // After the @ comes the host
         }
         
@@ -86,6 +87,8 @@ private:
         _command = cmdAndParams[0];
         if(cmdAndParams.size() > 1) {
             _message = cmdAndParams[1];
+            std::string recipient = _message.substr(0, _message.find(" "));
+            
         }
         if(_trailing != "\0") {
             _message.append(" ").append(_trailing);

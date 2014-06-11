@@ -53,11 +53,10 @@
       <compileType>
         <ccTool>
           <architecture>1</architecture>
+          <commandlineTool>g++</commandlineTool>
         </ccTool>
         <linkerTool>
-          <linkerLibItems>
-            <linkerLibLibItem>ws2_32</linkerLibLibItem>
-          </linkerLibItems>
+          <output>${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/damagebot</output>
           <commandLine>-static-libgcc -static-libstdc++ -static</commandLine>
         </linkerTool>
       </compileType>
@@ -72,10 +71,6 @@
       <item path="PropertiesReader.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="StringLib.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="action/SimpleCommands.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="action/SimpleCommands.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="bot/DamageBot.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -124,9 +119,46 @@
       </item>
       <item path="StringLib.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="action/SimpleCommands.cpp" ex="false" tool="1" flavor2="0">
+      <item path="bot/DamageBot.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="action/SimpleCommands.h" ex="false" tool="3" flavor2="0">
+      <item path="bot/DamageBot.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="events/ChatEvent.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="events/Event.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="events/EventDispatcher.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="events/EventDispatcher.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="main.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+    </conf>
+    <conf name="Debug_Linux" type="1">
+      <toolsSet>
+        <compilerSet>default</compilerSet>
+        <dependencyChecking>true</dependencyChecking>
+        <rebuildPropChanged>false</rebuildPropChanged>
+      </toolsSet>
+      <compileType>
+        <ccTool>
+          <incDir>
+            <pElem>/usr/lib/gcc/i686-redhat-linux/4.7.2/include</pElem>
+            <pElem>/usr/local/include</pElem>
+          </incDir>
+        </ccTool>
+      </compileType>
+      <item path="Connection.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Connection.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Delegate.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="PropertiesReader.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="PropertiesReader.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="StringLib.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="bot/DamageBot.cpp" ex="false" tool="1" flavor2="0">
       </item>

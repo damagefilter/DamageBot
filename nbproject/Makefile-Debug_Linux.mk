@@ -23,7 +23,7 @@ AS=as
 # Macros
 CND_PLATFORM=GNU-Linux-x86
 CND_DLIB_EXT=so
-CND_CONF=Debug
+CND_CONF=Debug_Linux
 CND_DISTDIR=dist
 CND_BUILDDIR=build
 
@@ -46,8 +46,8 @@ OBJECTFILES= \
 CFLAGS=
 
 # CC Compiler Flags
-CCFLAGS=-m32
-CXXFLAGS=-m32
+CCFLAGS=
+CXXFLAGS=
 
 # Fortran Compiler Flags
 FFLAGS=
@@ -64,32 +64,32 @@ LDLIBSOPTIONS=
 
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/damagebot: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
-	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/damagebot ${OBJECTFILES} ${LDLIBSOPTIONS} -static-libgcc -static-libstdc++ -static
+	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/damagebot ${OBJECTFILES} ${LDLIBSOPTIONS}
 
 ${OBJECTDIR}/Connection.o: Connection.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Connection.o Connection.cpp
+	$(COMPILE.cc) -g -I/usr/lib/gcc/i686-redhat-linux/4.7.2/include -I/usr/local/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Connection.o Connection.cpp
 
 ${OBJECTDIR}/PropertiesReader.o: PropertiesReader.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/PropertiesReader.o PropertiesReader.cpp
+	$(COMPILE.cc) -g -I/usr/lib/gcc/i686-redhat-linux/4.7.2/include -I/usr/local/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/PropertiesReader.o PropertiesReader.cpp
 
 ${OBJECTDIR}/bot/DamageBot.o: bot/DamageBot.cpp 
 	${MKDIR} -p ${OBJECTDIR}/bot
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/bot/DamageBot.o bot/DamageBot.cpp
+	$(COMPILE.cc) -g -I/usr/lib/gcc/i686-redhat-linux/4.7.2/include -I/usr/local/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/bot/DamageBot.o bot/DamageBot.cpp
 
 ${OBJECTDIR}/events/EventDispatcher.o: events/EventDispatcher.cpp 
 	${MKDIR} -p ${OBJECTDIR}/events
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/events/EventDispatcher.o events/EventDispatcher.cpp
+	$(COMPILE.cc) -g -I/usr/lib/gcc/i686-redhat-linux/4.7.2/include -I/usr/local/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/events/EventDispatcher.o events/EventDispatcher.cpp
 
 ${OBJECTDIR}/main.o: main.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/main.o main.cpp
+	$(COMPILE.cc) -g -I/usr/lib/gcc/i686-redhat-linux/4.7.2/include -I/usr/local/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/main.o main.cpp
 
 # Subprojects
 .build-subprojects:

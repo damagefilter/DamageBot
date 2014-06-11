@@ -21,6 +21,7 @@
 #include <unistd.h>
 #endif
 
+#include "PropertiesReader.h"
 /**
  Represents a TCP Socket connection
  */

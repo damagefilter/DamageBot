@@ -5,7 +5,7 @@
  * Created on 5. Juni 2014, 13:42
  */
 
-#include <string>
+#include <string.h>
 #include <iostream>
 #include "DamageBot.h"
 
