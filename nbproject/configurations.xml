@@ -5,6 +5,7 @@
                    displayName="Header Files"
                    projectFiles="true">
       <logicalFolder name="f1" displayName="events" projectFiles="true">
+        <itemPath>events/ChatEvent.h</itemPath>
         <itemPath>events/Event.h</itemPath>
         <itemPath>events/EventDispatcher.h</itemPath>
       </logicalFolder>
@@ -12,6 +13,7 @@
       <itemPath>bot/DamageBot.h</itemPath>
       <itemPath>Delegate.h</itemPath>
       <itemPath>PropertiesReader.h</itemPath>
+      <itemPath>StringLib.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
                    displayName="Resource Files"
@@ -21,7 +23,6 @@
                    displayName="Source Files"
                    projectFiles="true">
       <logicalFolder name="f1" displayName="events" projectFiles="true">
-        <itemPath>events/Event.cpp</itemPath>
       </logicalFolder>
       <itemPath>Connection.cpp</itemPath>
       <itemPath>bot/DamageBot.cpp</itemPath>
@@ -70,11 +71,13 @@
       </item>
       <item path="PropertiesReader.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="StringLib.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="bot/DamageBot.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="bot/DamageBot.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="events/Event.cpp" ex="false" tool="1" flavor2="0">
+      <item path="events/ChatEvent.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="events/Event.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -115,11 +118,13 @@
       </item>
       <item path="PropertiesReader.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="StringLib.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="bot/DamageBot.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="bot/DamageBot.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="events/Event.cpp" ex="false" tool="1" flavor2="0">
+      <item path="events/ChatEvent.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="events/Event.h" ex="false" tool="3" flavor2="0">
       </item>

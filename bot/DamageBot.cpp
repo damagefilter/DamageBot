@@ -34,7 +34,7 @@ void DamageBot::login(const char* password) {
     this->con->sendMessage(buf.c_str());
     buf.clear();
     
-    buf.append("USER ").append(this->nick).append(" 0 0 :").append(this->user).append("\r\n");
+    buf.append("USER ").append(this->nick).append(" 0 * :").append(this->user).append("\r\n");
     this->con->sendMessage(buf.c_str());
     buf.clear();
     if (password != 0) {

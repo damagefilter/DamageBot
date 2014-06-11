@@ -38,7 +38,6 @@ OBJECTFILES= \
 	${OBJECTDIR}/Connection.o \
 	${OBJECTDIR}/PropertiesReader.o \
 	${OBJECTDIR}/bot/DamageBot.o \
-	${OBJECTDIR}/events/Event.o \
 	${OBJECTDIR}/events/EventDispatcher.o \
 	${OBJECTDIR}/main.o
 
@@ -81,11 +80,6 @@ ${OBJECTDIR}/bot/DamageBot.o: bot/DamageBot.cpp
 	${MKDIR} -p ${OBJECTDIR}/bot
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/bot/DamageBot.o bot/DamageBot.cpp
-
-${OBJECTDIR}/events/Event.o: events/Event.cpp 
-	${MKDIR} -p ${OBJECTDIR}/events
-	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/events/Event.o events/Event.cpp
 
 ${OBJECTDIR}/events/EventDispatcher.o: events/EventDispatcher.cpp 
 	${MKDIR} -p ${OBJECTDIR}/events

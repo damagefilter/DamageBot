@@ -1,5 +1,5 @@
 /* 
- * File:   IniReader.cpp
+ * File:   PropertiesReader.cpp
  * Author: kchristoph
  * 
  * Created on 6. Juni 2014, 13:01
