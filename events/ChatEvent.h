@@ -25,19 +25,19 @@ public:
      */
     ChatEvent(char* messageBuffer) {
         parseInput(std::string(messageBuffer));
-        this->type = Event::EventType::STANDARD_CHAT;
+        this->type = STANDARD_CHAT;
     }
     
-    std::string* getUser() {
-        return &this->user;
+    std::string& getUser() {
+        return this->user;
     }
     
-    std::string* getHost() {
-        return &this->host;
+    std::string& getHost() {
+        return this->host;
     }
     
-    std::string* getMessage() {
-        return &this->command;
+    std::string& getMessage() {
+        return this->command;
     }
 private:
     std::string user;
@@ -58,7 +58,8 @@ private:
         // with a colon, the characters following the colon until
         // the first space are the prefix.
         // Compare if a match from 0 to 1 element occurs with the given string (":")
-        if(buffer.compare(0, 1, ":") == 0) {
+        
+        if(StringLib::startsWith(buffer, ":")) {
             prefixEnd = buffer.find(" ");
             _prefix = buffer.substr(1, prefixEnd - 1);
         }
@@ -76,12 +77,12 @@ private:
         
         if(_prefix != "\0") {
             // This should always be set but according to IRC protocol, this appears to be optional ... hu
-            std::vector<std::string> userAndHost = StringLib::split(_prefix, "!"); 
+            std::vector<std::string> userAndHost = StringLib::split(_prefix, '!'); 
             this->user = userAndHost[0]; // First element is udername according to format user!user@host
             this->host = userAndHost[1].substr(userAndHost[1].find("@")); // After the @ comes the host
         }
         
-        std::vector<std::string> cmdAndParams = StringLib::split(buffer.substr(prefixEnd + 1, trailingStart - prefixEnd - 1), " ");
+        std::vector<std::string> cmdAndParams = StringLib::split(buffer.substr(prefixEnd + 1, trailingStart - prefixEnd - 1), ' ');
         _command = cmdAndParams[0];
         if(cmdAndParams.size() > 1) {
             _message = cmdAndParams[1];

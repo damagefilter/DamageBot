@@ -37,6 +37,7 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 OBJECTFILES= \
 	${OBJECTDIR}/Connection.o \
 	${OBJECTDIR}/PropertiesReader.o \
+	${OBJECTDIR}/action/SimpleCommands.o \
 	${OBJECTDIR}/bot/DamageBot.o \
 	${OBJECTDIR}/events/EventDispatcher.o \
 	${OBJECTDIR}/main.o
@@ -75,6 +76,11 @@ ${OBJECTDIR}/PropertiesReader.o: PropertiesReader.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/PropertiesReader.o PropertiesReader.cpp
+
+${OBJECTDIR}/action/SimpleCommands.o: action/SimpleCommands.cpp 
+	${MKDIR} -p ${OBJECTDIR}/action
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/action/SimpleCommands.o action/SimpleCommands.cpp
 
 ${OBJECTDIR}/bot/DamageBot.o: bot/DamageBot.cpp 
 	${MKDIR} -p ${OBJECTDIR}/bot

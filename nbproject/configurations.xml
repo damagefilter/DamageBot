@@ -73,6 +73,10 @@
       </item>
       <item path="StringLib.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="action/SimpleCommands.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="action/SimpleCommands.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="bot/DamageBot.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="bot/DamageBot.h" ex="false" tool="3" flavor2="0">
@@ -119,6 +123,10 @@
       <item path="PropertiesReader.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="StringLib.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="action/SimpleCommands.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="action/SimpleCommands.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="bot/DamageBot.cpp" ex="false" tool="1" flavor2="0">
       </item>

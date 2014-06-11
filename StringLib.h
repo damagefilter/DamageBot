@@ -17,10 +17,30 @@
 class StringLib {
 public:
     // String splitting from here: http://stackoverflow.com/questions/236129/how-to-split-a-string-in-c
-    static std::vector<std::string> split(const std::string &s, char delim) {
+    /**
+     * Split a string by a given delmiter into a vector of strings
+     * @param input
+     * @param delim
+     * @return 
+     */
+    static std::vector<std::string> split(const std::string &input, char delim) {
         std::vector<std::string> elems;
-        split(s, delim, elems);
+        split(input, delim, elems);
         return elems;
+    }
+    
+    /**
+     * Check if a string starts with the given string
+     * @param input string to check
+     * @param check string the input needs to start witrh
+     * @return 
+     */
+    static bool startsWith(std::string& input, std::string& check) {
+        return input.compare(0, check.length(), check) == 0;
+    }
+    
+    static bool startsWith(std::string& input, const char* check) {
+        return input.compare(0, strlen(check)-1, check) == 0;
     }
 private:
     static std::vector<std::string> &split(const std::string &input, char delim, std::vector<std::string> &elems) {
