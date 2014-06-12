@@ -28,19 +28,61 @@ public:
         this->type = STANDARD_CHAT;
     }
     
-    std::string& getUser() {
-        return this->user;
+    /**
+     * Get the sender of this message
+     * @return the sender
+     */
+    std::string& getSender() {
+        return this->sender;
     }
     
+    /**
+     * Get the host the message sender sits on
+     * @return the host
+     */
     std::string& getHost() {
         return this->host;
     }
     
+    /**
+     * Get the message that was sent.
+     * Depending on command, this may be a list
+     * of space separated command arguments.
+     * @return 
+     */
     std::string& getMessage() {
+        return this->message;
+    }
+    
+    /**
+     * Get the command that was issued with this message
+     * @return 
+     */
+    std::string& getCommand() {
         return this->command;
     }
+    
+    /**
+     * Get the recipient of this message.
+     * This can be a username or a channel name.
+     * With isChannelChat you can find out
+     * @return 
+     */
+    std::string& getRecipient() {
+        return this->recipient;
+    }
+    
+    /**
+     * Whether this message is directed at a channel or not.
+     * If not, this is a private message
+     * @return 
+     */
+    bool isChannelChat() {
+        return !this->isPrivateChat;
+    }
+    
 private:
-    std::string user;
+    std::string sender;
     std::string host;
     std::string message;
     std::string command;
@@ -78,16 +120,25 @@ private:
         
         if(_prefix != "\0") {
             // This should always be set but according to IRC protocol, this appears to be optional ... hu
-            std::vector<std::string> userAndHost = StringLib::split(_prefix, '!'); 
-            this->user = userAndHost[0]; // First element is username according to format user!user@host
-            this->host = userAndHost[1].substr(userAndHost[1].find("@")); // After the @ comes the host
+            std::vector<std::string> senderAndHost = StringLib::split(_prefix, '!'); 
+            this->sender = senderAndHost[0]; // First element is username according to format user!user@host
+            this->host = senderAndHost[1].substr(senderAndHost[1].find("@")); // After the @ comes the host
         }
         
         std::vector<std::string> cmdAndParams = StringLib::split(buffer.substr(prefixEnd + 1, trailingStart - prefixEnd - 1), ' ');
         _command = cmdAndParams[0];
         if(cmdAndParams.size() > 1) {
-            _message = cmdAndParams[1];
-            std::string recipient = _message.substr(0, _message.find(" "));
+            int nameSpacer = _message.find(" ");
+            _message = cmdAndParams[1].substr(nameSpacer);
+            // First spaceless part is the name to which this message goes to
+            std::string recipient = _message.substr(0, nameSpacer);
+            if(StringLib::startsWith(recipient, "#")) {
+                this->isPrivateChat = false;
+            }
+            else {
+                this->isPrivateChat = true;
+            }
+            this->recipient = recipient;
             
         }
         if(_trailing != "\0") {
