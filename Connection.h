@@ -8,7 +8,7 @@
 #ifndef CONNECTION_H
 #define	CONNECTION_H
 
-#ifdef WIN32
+#if defined(WIN32) || defined(_WIN32)
 #include <winsock2.h>
 
 #include "PropertiesReader.h"

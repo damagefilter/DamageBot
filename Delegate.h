@@ -11,6 +11,7 @@
 #define	DELEGATE_H
 
 #include "events/Event.h"
+#include "events/EventType.h"
 #include <string>
 #include <typeinfo>
 
@@ -25,10 +26,13 @@ public:
      * @param instance a pointer to an instance of the given class type
      * @return new Delegate object with a binding to given class and function pointer
      */
-    template <class C, void (C::*Method)(Event*)>
-    static Delegate* create(C *instance, Event::EventType type) {
+    template <class T, void (T::*ExMethod)(Event*)>
+    static Delegate* create(T* instance, EventType type) {
         Delegate* del = new Delegate();
-        del->bind<C, Method>(instance, type);
+//        del->bind<C, ExMethod>(instance, type);
+        del->classHandle = instance;
+        del->methodHandle = &classMethodDelegator<T, ExMethod>;
+        del->eventType = type;
         return del;
     }
     
@@ -42,7 +46,7 @@ public:
         return methodHandle(classHandle, event);
     }
     
-    Event::EventType getEventType() {
+    EventType getEventType() {
         return eventType;
     }
     
@@ -51,7 +55,7 @@ public:
 private:
     Method methodHandle;
     Class classHandle;
-    Event::EventType eventType;
+    EventType eventType;
     
     /**
      * Delegates a global method.
@@ -61,10 +65,10 @@ private:
      *      from event handling
      * @param event
      */
-    template <void (*Method)(Event*)>
-    static void methodDelegator(Class makeItUniform, Event *event) {
-        return (Method) (event);
-    }
+//    template <void (*ExMethod)(Event*)>
+//    static void methodDelegator(Class makeItUniform, Event *event) {
+//        return (ExMethod) (event);
+//    }
 
     /**
      * Delegates a method of a class.
@@ -73,9 +77,14 @@ private:
      * @param cls the class object
      * @param event the event to pass
      */
-    template <class C, void (C::*Method)(Event*)>
-    static void classMethodDelegator(Class cls, Event *event) {
-        return (static_cast<C*> (cls)->*Method)(event);
+//    template <class T, void (T::*ExMethod)(Event*)>
+//    static inline void classMethodDelegator(Class cls, Event *event) {
+//        ((cls)->*ExMethod)(event);
+//    }
+    
+    template <class T, void (T::*Function)(Event*)>
+    static inline void classMethodDelegator(Class ptr, Event* arg) {
+        return (static_cast<T*>(ptr)->*Function)(arg);
     }
     
 //    void getTypeFromEvent
@@ -84,12 +93,12 @@ private:
      * Bind a function to this Delegate.
      * @template function to execute, Event class
      */
-    template <void (*Method)(Event*), class E>
-    void bind(Event::EventType type) {
-        classHandle = 0;
-        methodHandle = &methodDelegator<Method>;
-        eventType = type;
-    }
+//    template <void (*ExMethod)(Event*), class E>
+//    void bind(EventType type) {
+//        classHandle = 0;
+//        methodHandle = &methodDelegator<ExMethod>;
+//        eventType = type;
+//    }
     
     /**
      * Bind a method tho this delegate to a specified class.
@@ -97,9 +106,9 @@ private:
      * @param cls the class object
      * @template Listener class, Event class, Listener method
      */
-    template <class C, class E, void (C::*Method)(Event*)>
-    void bind(C *cls, Event::EventType eType) {
-        methodHandle = &classMethodDelegator<C, Method>;
+    template <class C, void (C::*ExMethod)(Event*)>
+    void bind(C *cls, EventType eType) {
+        methodHandle = &classMethodDelegator<C, ExMethod>;
         classHandle = cls;
         eventType = eType;
     }

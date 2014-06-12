@@ -44,7 +44,7 @@ public:
      */
     void call(Event* event);
 private:
-    std::map<Event::EventType, DelegateList> registeredListeners; 
+    std::map<EventType, DelegateList> registeredListeners; 
 };
 
 #endif	/* EVENTDISPATCHER_H */

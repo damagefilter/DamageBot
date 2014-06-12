@@ -40,7 +40,8 @@ public:
     }
     
     static bool startsWith(std::string& input, const char* check) {
-        return input.compare(0, strlen(check)-1, check) == 0;
+        return input.find(check) == 0;
+//        return input.compare(0, strlen(check)-1, check) == 0;
     }
 private:
     static std::vector<std::string> &split(const std::string &input, char delim, std::vector<std::string> &elems) {

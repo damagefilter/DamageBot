@@ -10,8 +10,13 @@
 #include <map>
 #include <string>
 #include <iostream>
+#include <stdexcept>
 #include "PropertiesReader.h"
 #include "bot/DamageBot.h"
+#include "events/EventDispatcher.h"
+#include "action/SimpleCommands.h"
+#include "events/EventType.h"
+
 using namespace std;
 
 /*
@@ -27,14 +32,27 @@ int main(int argc, char** argv) {
         return -1;
     }
     cout << "Connected successfully" << std::endl;
-    
+    cout << "Registering events ..." << std::endl;
+    SimpleCommands cmds(&bot);
+    EventDispatcher::instance()->registerDelegate(
+        Delegate::create<SimpleCommands, (void (SimpleCommands::*)(Event*))&SimpleCommands::execute>(&cmds, STANDARD_CHAT)
+    );
     bot.login(0);
     cout << "Logged in as " << props.getString("nick") << std::endl;
 
     cout << "Start processing messages ..." << endl;
-    while(true) {
+    try {
+        while(true) {
         bot.processMessage();     
+        }
     }
+    catch (std::out_of_range exception) {
+        cout << exception.what();
+    }
+    
+    system("pause");
+//    char derp[10];
+//    cin >> derp;
     return 0;
 }
 

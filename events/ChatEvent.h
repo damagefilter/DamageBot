@@ -12,7 +12,7 @@
 #include "../StringLib.h"
 #include <string>
 
-class ChatEvent : private Event {
+class ChatEvent : public Event {
 public:
     
     /**
@@ -92,7 +92,7 @@ private:
     // TODO: Move this into an IRCHelper class or something.
     // Too generic to have it in here
     void parseInput(std::string buffer) {
-        int prefixEnd = buffer.length();
+        int prefixEnd = -1, trailingStarts = buffer.length();
         std::string _prefix = "\0";
         std::string _trailing = "\0";
         std::string _command = "\0";
@@ -122,27 +122,43 @@ private:
             // This should always be set but according to IRC protocol, this appears to be optional ... hu
             std::vector<std::string> senderAndHost = StringLib::split(_prefix, '!'); 
             this->sender = senderAndHost[0]; // First element is username according to format user!user@host
-            this->host = senderAndHost[1].substr(senderAndHost[1].find("@")); // After the @ comes the host
+            if(senderAndHost.size() > 1) {
+                int splitPos = senderAndHost[1].find("@");
+                if(splitPos != std::string::npos) {
+                    this->host = senderAndHost[1].substr(splitPos); // After the @ comes the host
+                }
+                else {
+                    this->host = senderAndHost[1];
+                }
+            }
+            else {
+                this->host = this->sender;
+            }
+            
         }
         
         std::vector<std::string> cmdAndParams = StringLib::split(buffer.substr(prefixEnd + 1, trailingStart - prefixEnd - 1), ' ');
         _command = cmdAndParams[0];
         if(cmdAndParams.size() > 1) {
             int nameSpacer = _message.find(" ");
-            _message = cmdAndParams[1].substr(nameSpacer);
+            if(nameSpacer != std::string::npos) {
+                _message = cmdAndParams[1].substr(nameSpacer);
             // First spaceless part is the name to which this message goes to
-            std::string recipient = _message.substr(0, nameSpacer);
+            std::string _recipient = _message.substr(0, nameSpacer);
+            this->recipient = _recipient;
+            }
+            
             if(StringLib::startsWith(recipient, "#")) {
                 this->isPrivateChat = false;
             }
             else {
                 this->isPrivateChat = true;
             }
-            this->recipient = recipient;
+            
             
         }
         if(_trailing != "\0") {
-            _message.append(" ").append(_trailing);
+            _message.append(_trailing);
         }
         this->message = _message;
         this->command = _command;

@@ -21,8 +21,8 @@ FC=gfortran
 AS=as
 
 # Macros
-CND_PLATFORM=GNU-Linux-x86
-CND_DLIB_EXT=so
+CND_PLATFORM=MinGW_1-Windows
+CND_DLIB_EXT=dll
 CND_CONF=Debug_Linux
 CND_DISTDIR=dist
 CND_BUILDDIR=build
@@ -37,6 +37,7 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 OBJECTFILES= \
 	${OBJECTDIR}/Connection.o \
 	${OBJECTDIR}/PropertiesReader.o \
+	${OBJECTDIR}/action/SimpleCommands.o \
 	${OBJECTDIR}/bot/DamageBot.o \
 	${OBJECTDIR}/events/EventDispatcher.o \
 	${OBJECTDIR}/main.o
@@ -60,9 +61,9 @@ LDLIBSOPTIONS=
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
-	"${MAKE}"  -f nbproject/Makefile-${CND_CONF}.mk ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/damagebot
+	"${MAKE}"  -f nbproject/Makefile-${CND_CONF}.mk ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/damagebot.exe
 
-${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/damagebot: ${OBJECTFILES}
+${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/damagebot.exe: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
 	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/damagebot ${OBJECTFILES} ${LDLIBSOPTIONS}
 
@@ -75,6 +76,11 @@ ${OBJECTDIR}/PropertiesReader.o: PropertiesReader.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -I/usr/lib/gcc/i686-redhat-linux/4.7.2/include -I/usr/local/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/PropertiesReader.o PropertiesReader.cpp
+
+${OBJECTDIR}/action/SimpleCommands.o: action/SimpleCommands.cpp 
+	${MKDIR} -p ${OBJECTDIR}/action
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -I/usr/lib/gcc/i686-redhat-linux/4.7.2/include -I/usr/local/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/action/SimpleCommands.o action/SimpleCommands.cpp
 
 ${OBJECTDIR}/bot/DamageBot.o: bot/DamageBot.cpp 
 	${MKDIR} -p ${OBJECTDIR}/bot
@@ -97,7 +103,7 @@ ${OBJECTDIR}/main.o: main.cpp
 # Clean Targets
 .clean-conf: ${CLEAN_SUBPROJECTS}
 	${RM} -r ${CND_BUILDDIR}/${CND_CONF}
-	${RM} ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/damagebot
+	${RM} ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/damagebot.exe
 
 # Subprojects
 .clean-subprojects:

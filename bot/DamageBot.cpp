@@ -8,6 +8,8 @@
 #include <string.h>
 #include <iostream>
 #include "DamageBot.h"
+#include "../events/EventDispatcher.h"
+#include "../events/ChatEvent.h"
 
 DamageBot::DamageBot(const char* _nick, const char* _user, const char* _owner) {
     this->nick = _nick;
@@ -20,12 +22,14 @@ void DamageBot::init() {
     this->con = Connection::instance();
 }
 
-void DamageBot::doPong(std::string& message) {
+bool DamageBot::doPong(std::string& message) {
     int pingPos = message.find("PING");
     if(pingPos != std::string::npos) {
         std::string pong("PONG"+message.substr(pingPos+4)+"\r\n");
         this->con->sendMessage(pong.c_str());
+        return true;
     }
+    return false;
 }
 
 void DamageBot::login(const char* password) {
@@ -60,7 +64,9 @@ void DamageBot::processMessage() {
     this->con->read(messageBuffer);
     std::cout << messageBuffer << std::endl;
     std::string stringBuffer(messageBuffer);
-    doPong(stringBuffer);
+    if(!doPong(stringBuffer)) {
+        EventDispatcher::instance()->call(new ChatEvent(messageBuffer));
+    }
 }
 
 

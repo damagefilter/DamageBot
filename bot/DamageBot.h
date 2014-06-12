@@ -10,6 +10,7 @@
 #include "../Connection.h"
 
 #include <list>
+#include <string>
 
 class DamageBot {
 public:
@@ -19,15 +20,6 @@ public:
      * Initialise the bot, connect to the server that was passed in the constructor
      */
     void init();
-    
-    /**
-     * Conduct a search within a given char array haystack,
-     * for the given char array needle
-     * @param haystack
-     * @param needle
-     * @return 
-     */
-    bool charSearch(char *haystack, char *needle);
     
     /**
      * Sends a message to the currently active channel
@@ -46,7 +38,7 @@ public:
      * Used to respond to ping requests from an IRC server
      * @param message
      */
-    void doPong(std::string& message);
+    bool doPong(std::string& message);
     
     /**
      * Does the login honky tonky at the connected IRC server
@@ -68,12 +60,24 @@ public:
      * @param channel
      */
     void partChannel(std::string& channel);
+    
+    std::string& getNick() {
+        return this->nick;
+    }
+    
+    std::string& getUser() {
+        return this->user;
+    }
+    
+    std::string& getOwner() {
+        return this->owner;
+    }
  
 private:
     char messageBuffer[Connection::MAX_BUFFER_SIZE];
-    const char* nick;
-    const char* user;
-    const char* owner;
+    std::string nick;
+    std::string user;
+    std::string owner;
     Connection* con;
     // Channels we're connected to
     std::list<std::string> channels;

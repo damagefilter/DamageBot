@@ -7,16 +7,9 @@
 
 #ifndef EVENT_H
 #define	EVENT_H
-
+#include "EventType.h"
 class Event {
 public:
-    enum EventType {
-        STANDARD_CHAT,
-        PRIVATE_CHAT,
-        USER_JOIN,
-        USER_PART
-    };
-    
     EventType getType() {
         return type;
     }
