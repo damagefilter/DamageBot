@@ -81,4 +81,14 @@ void DamageBot::partChannel(std::string& channel) {
     this->con->sendMessage(toSend.c_str());
 }
 
+void DamageBot::quit(std::string& message, bool terminate) {
+    std::string toSend("QUIT :"+message+"\r\n");
+    this->con->sendMessage(toSend.c_str());
+    if(terminate) {
+        this->con->closeConnection();
+        exit(0); // close application
+    }
+}
+
+
 

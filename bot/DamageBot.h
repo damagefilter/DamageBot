@@ -61,6 +61,8 @@ public:
      */
     void partChannel(std::string& channel);
     
+    void quit(std::string& message, bool terminate);
+    
     std::string& getNick() {
         return this->nick;
     }

@@ -41,5 +41,14 @@ void SimpleCommands::execute(ChatEvent* event) {
         std::string channel = arguments[0].substr(1);// Remove the #
         this->bot->joinChannel(channel); 
     }
+    
+    if(command == "!part" && arguments.size() >= 1) {
+        std::string channel = arguments[0].substr(1);// Remove the #
+        this->bot->partChannel(channel); 
+    }
+    
+    if(command == "!quit" && arguments.size() >= 1) {
+        this->bot->quit(argumentString, true);
+    }
 }
 
