@@ -48,8 +48,13 @@ void SimpleCommands::execute(ChatEvent* event) {
         this->bot->partChannel(channel); 
     }
     
-    if(command == "!quit" && arguments.size() >= 1) {
-        this->bot->quit(argumentString, true);
+    if(command == "!quit") {
+        if(arguments.size() >= 1) {
+            this->bot->quit(argumentString, true);
+        }
+        else {
+            this->bot->quit("Damage Bot out!", true);
+        }
     }
 }
 

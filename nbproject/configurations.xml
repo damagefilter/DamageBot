@@ -5,6 +5,9 @@
                    displayName="Header Files"
                    projectFiles="true">
       <logicalFolder name="f2" displayName="action" projectFiles="true">
+        <logicalFolder name="f1" displayName="chatbot" projectFiles="true">
+          <itemPath>action/chatbot/ResponseNode.h</itemPath>
+        </logicalFolder>
         <itemPath>action/SimpleCommands.h</itemPath>
       </logicalFolder>
       <logicalFolder name="f1" displayName="events" projectFiles="true">
@@ -88,6 +91,8 @@
       </item>
       <item path="action/SimpleCommands.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="action/chatbot/ResponseNode.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="bot/DamageBot.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="bot/DamageBot.h" ex="false" tool="3" flavor2="0">
@@ -141,6 +146,8 @@
       </item>
       <item path="action/SimpleCommands.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="action/chatbot/ResponseNode.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="bot/DamageBot.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="bot/DamageBot.h" ex="false" tool="3" flavor2="0">
@@ -189,6 +196,8 @@
       <item path="action/SimpleCommands.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="action/SimpleCommands.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="action/chatbot/ResponseNode.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="bot/DamageBot.cpp" ex="false" tool="1" flavor2="0">
       </item>

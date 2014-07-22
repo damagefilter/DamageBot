@@ -23,7 +23,7 @@ using namespace std;
  * 
  */
 int main(int argc, char** argv) {
-    cout << "Starting Bot ..." << std::endl;
+    cout << "Starting Bot ..." << endl;
     PropertiesReader props("bot.cfg");
     DamageBot bot(props.getString("nick"), props.getString("user"), props.getString("owner"));
     bot.init();
@@ -31,14 +31,14 @@ int main(int argc, char** argv) {
         cout << "Connection failed, sry bro!";
         return -1;
     }
-    cout << "Connected successfully" << std::endl;
-    cout << "Registering events ..." << std::endl;
+    cout << "Connected successfully" << endl;
+    cout << "Registering events ..." << endl;
     SimpleCommands cmds(&bot);
     EventDispatcher::instance()->registerDelegate(
         Delegate::create<SimpleCommands, (void (SimpleCommands::*)(Event*))&SimpleCommands::execute>(&cmds, STANDARD_CHAT)
     );
     bot.login(0);
-    cout << "Logged in as " << props.getString("nick") << std::endl;
+    cout << "Logged in as " << props.getString("nick") << endl;
 
     cout << "Start processing messages ..." << endl;
     try {
@@ -46,13 +46,13 @@ int main(int argc, char** argv) {
         bot.processMessage();     
         }
     }
-    catch (std::out_of_range exception) {
+    catch (out_of_range exception) {
         cout << exception.what();
     }
     
-    system("pause");
-//    char derp[10];
-//    cin >> derp;
+//    system("pause");
+    char derp[10];
+    cin >> derp;
     return 0;
 }
 
