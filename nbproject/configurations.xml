@@ -166,10 +166,12 @@
       </toolsSet>
       <compileType>
         <ccTool>
+          <standard>8</standard>
           <incDir>
             <pElem>/usr/lib/gcc/i686-redhat-linux/4.7.2/include</pElem>
             <pElem>/usr/local/include</pElem>
           </incDir>
+          <commandLine>-g</commandLine>
         </ccTool>
       </compileType>
       <item path="Connection.cpp" ex="false" tool="1" flavor2="0">

@@ -23,9 +23,13 @@ public:
      * @param delim
      * @return 
      */
-    static std::vector<std::string> split(const std::string &input, char delim) {
-        std::vector<std::string> elems;
-        split(input, delim, elems);
+        static std::vector<std::string> split(const std::string &input, char delim) {
+        std::stringstream ss(input);
+        std::string item;
+        std::vector<std::string> &elems;
+        while (std::getline(ss, item, delim)) {
+            elems.push_back(item);
+        }
         return elems;
     }
     
@@ -44,14 +48,7 @@ public:
 //        return input.compare(0, strlen(check)-1, check) == 0;
     }
 private:
-    static std::vector<std::string> &split(const std::string &input, char delim, std::vector<std::string> &elems) {
-        std::stringstream ss(input);
-        std::string item;
-        while (std::getline(ss, item, delim)) {
-            elems.push_back(item);
-        }
-        return elems;
-    }
+
 };
 
 #endif	/* STRINGLIB_H */

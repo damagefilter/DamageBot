@@ -7,6 +7,7 @@
 
 #include <string.h>
 #include <iostream>
+#include <stdexcept>
 #include "DamageBot.h"
 #include "../events/EventDispatcher.h"
 #include "../events/ChatEvent.h"
@@ -86,7 +87,7 @@ void DamageBot::quit(std::string& message, bool terminate) {
     this->con->sendMessage(toSend.c_str());
     if(terminate) {
         this->con->closeConnection();
-        exit(0); // close application
+        throw std::exception(); // close application
     }
 }
 

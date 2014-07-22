@@ -21,8 +21,8 @@ FC=gfortran
 AS=as
 
 # Macros
-CND_PLATFORM=MinGW_1-Windows
-CND_DLIB_EXT=dll
+CND_PLATFORM=GNU-Linux-x86
+CND_DLIB_EXT=so
 CND_CONF=Debug_Linux
 CND_DISTDIR=dist
 CND_BUILDDIR=build
@@ -47,8 +47,8 @@ OBJECTFILES= \
 CFLAGS=
 
 # CC Compiler Flags
-CCFLAGS=
-CXXFLAGS=
+CCFLAGS=-g
+CXXFLAGS=-g
 
 # Fortran Compiler Flags
 FFLAGS=
@@ -61,41 +61,41 @@ LDLIBSOPTIONS=
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
-	"${MAKE}"  -f nbproject/Makefile-${CND_CONF}.mk ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/damagebot.exe
+	"${MAKE}"  -f nbproject/Makefile-${CND_CONF}.mk ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/damagebot
 
-${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/damagebot.exe: ${OBJECTFILES}
+${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/damagebot: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
 	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/damagebot ${OBJECTFILES} ${LDLIBSOPTIONS}
 
 ${OBJECTDIR}/Connection.o: Connection.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -I/usr/lib/gcc/i686-redhat-linux/4.7.2/include -I/usr/local/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Connection.o Connection.cpp
+	$(COMPILE.cc) -g -I/usr/lib/gcc/i686-redhat-linux/4.7.2/include -I/usr/local/include -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Connection.o Connection.cpp
 
 ${OBJECTDIR}/PropertiesReader.o: PropertiesReader.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -I/usr/lib/gcc/i686-redhat-linux/4.7.2/include -I/usr/local/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/PropertiesReader.o PropertiesReader.cpp
+	$(COMPILE.cc) -g -I/usr/lib/gcc/i686-redhat-linux/4.7.2/include -I/usr/local/include -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/PropertiesReader.o PropertiesReader.cpp
 
 ${OBJECTDIR}/action/SimpleCommands.o: action/SimpleCommands.cpp 
 	${MKDIR} -p ${OBJECTDIR}/action
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -I/usr/lib/gcc/i686-redhat-linux/4.7.2/include -I/usr/local/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/action/SimpleCommands.o action/SimpleCommands.cpp
+	$(COMPILE.cc) -g -I/usr/lib/gcc/i686-redhat-linux/4.7.2/include -I/usr/local/include -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/action/SimpleCommands.o action/SimpleCommands.cpp
 
 ${OBJECTDIR}/bot/DamageBot.o: bot/DamageBot.cpp 
 	${MKDIR} -p ${OBJECTDIR}/bot
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -I/usr/lib/gcc/i686-redhat-linux/4.7.2/include -I/usr/local/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/bot/DamageBot.o bot/DamageBot.cpp
+	$(COMPILE.cc) -g -I/usr/lib/gcc/i686-redhat-linux/4.7.2/include -I/usr/local/include -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/bot/DamageBot.o bot/DamageBot.cpp
 
 ${OBJECTDIR}/events/EventDispatcher.o: events/EventDispatcher.cpp 
 	${MKDIR} -p ${OBJECTDIR}/events
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -I/usr/lib/gcc/i686-redhat-linux/4.7.2/include -I/usr/local/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/events/EventDispatcher.o events/EventDispatcher.cpp
+	$(COMPILE.cc) -g -I/usr/lib/gcc/i686-redhat-linux/4.7.2/include -I/usr/local/include -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/events/EventDispatcher.o events/EventDispatcher.cpp
 
 ${OBJECTDIR}/main.o: main.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -I/usr/lib/gcc/i686-redhat-linux/4.7.2/include -I/usr/local/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/main.o main.cpp
+	$(COMPILE.cc) -g -I/usr/lib/gcc/i686-redhat-linux/4.7.2/include -I/usr/local/include -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/main.o main.cpp
 
 # Subprojects
 .build-subprojects:
@@ -103,7 +103,7 @@ ${OBJECTDIR}/main.o: main.cpp
 # Clean Targets
 .clean-conf: ${CLEAN_SUBPROJECTS}
 	${RM} -r ${CND_BUILDDIR}/${CND_CONF}
-	${RM} ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/damagebot.exe
+	${RM} ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/damagebot
 
 # Subprojects
 .clean-subprojects:

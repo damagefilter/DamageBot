@@ -7,6 +7,7 @@
 
 #include "SimpleCommands.h"
 #include "../StringLib.h"
+#include "../bot/DamageBot.h"
 #include <string.h>
 
 SimpleCommands::SimpleCommands(DamageBot* _bot) {
