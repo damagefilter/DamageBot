@@ -10,8 +10,6 @@
 
 #if defined(WIN32) || defined(_WIN32)
 #include <winsock2.h>
-
-#include "PropertiesReader.h"
 #else
 #include <sys/socket.h>
 #include <sys/types.h>
@@ -21,7 +19,7 @@
 #include <unistd.h>
 #endif
 
-#include "PropertiesReader.h"
+#include "../tools/PropertiesReader.h"
 /**
  Represents a TCP Socket connection
  */

@@ -12,7 +12,7 @@
 #include <map>
 
 #include "Event.h"
-#include "../Delegate.h"
+#include "Delegate.h"
 
 class EventDispatcher {
 public:

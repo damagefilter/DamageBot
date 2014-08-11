@@ -8,8 +8,8 @@
 #ifndef SIMPLECOMMANDS_H
 #define	SIMPLECOMMANDS_H
 
-#include "../bot/DamageBot.h"
-#include "../events/ChatEvent.h"
+#include "../../bot/DamageBot.h"
+#include "../../events/ChatEvent.h"
 /**
  * Supplies the bot with a few simple commands,
  * namely join, part, quit and say

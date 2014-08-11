@@ -10,8 +10,8 @@
 #ifndef DELEGATE_H
 #define	DELEGATE_H
 
-#include "events/Event.h"
-#include "events/EventType.h"
+#include "Event.h"
+#include "EventType.h"
 #include <string>
 #include <typeinfo>
 

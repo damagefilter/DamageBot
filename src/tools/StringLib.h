@@ -26,7 +26,7 @@ public:
         static std::vector<std::string> split(const std::string &input, char delim) {
         std::stringstream ss(input);
         std::string item;
-        std::vector<std::string> &elems;
+        std::vector<std::string> elems;
         while (std::getline(ss, item, delim)) {
             elems.push_back(item);
         }

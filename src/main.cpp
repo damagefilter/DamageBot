@@ -11,10 +11,10 @@
 #include <string>
 #include <iostream>
 #include <stdexcept>
-#include "PropertiesReader.h"
+#include "tools/PropertiesReader.h"
 #include "bot/DamageBot.h"
 #include "events/EventDispatcher.h"
-#include "action/SimpleCommands.h"
+#include "logic/simplecommands/SimpleCommands.h"
 #include "events/EventType.h"
 
 using namespace std;

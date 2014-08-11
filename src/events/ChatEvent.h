@@ -9,7 +9,7 @@
 #define	CHATEVENT_H
 
 #include "Event.h"
-#include "../StringLib.h"
+#include "../tools/StringLib.h"
 #include <string>
 
 class ChatEvent : public Event {

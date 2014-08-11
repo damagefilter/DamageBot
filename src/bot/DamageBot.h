@@ -7,7 +7,7 @@
 
 #ifndef DAMAGEBOT_H
 #define	DAMAGEBOT_H
-#include "../Connection.h"
+#include "../networking/Connection.h"
 
 #include <list>
 #include <string>

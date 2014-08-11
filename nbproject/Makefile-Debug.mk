@@ -21,8 +21,8 @@ FC=gfortran
 AS=as
 
 # Macros
-CND_PLATFORM=GNU-Linux-x86
-CND_DLIB_EXT=so
+CND_PLATFORM=MinGW_1-Windows
+CND_DLIB_EXT=dll
 CND_CONF=Debug
 CND_DISTDIR=dist
 CND_BUILDDIR=build
@@ -35,20 +35,20 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
-	${OBJECTDIR}/Connection.o \
-	${OBJECTDIR}/PropertiesReader.o \
-	${OBJECTDIR}/action/SimpleCommands.o \
-	${OBJECTDIR}/bot/DamageBot.o \
-	${OBJECTDIR}/events/EventDispatcher.o \
-	${OBJECTDIR}/main.o
+	${OBJECTDIR}/src/bot/DamageBot.o \
+	${OBJECTDIR}/src/events/EventDispatcher.o \
+	${OBJECTDIR}/src/logic/simplecommands/SimpleCommands.o \
+	${OBJECTDIR}/src/main.o \
+	${OBJECTDIR}/src/networking/Connection.o \
+	${OBJECTDIR}/src/tools/PropertiesReader.o
 
 
 # C Compiler Flags
 CFLAGS=
 
 # CC Compiler Flags
-CCFLAGS=-m32 -DWIN32
-CXXFLAGS=-m32 -DWIN32
+CCFLAGS=
+CXXFLAGS=
 
 # Fortran Compiler Flags
 FFLAGS=
@@ -57,45 +57,45 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=-lws2_32
+LDLIBSOPTIONS=
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
-	"${MAKE}"  -f nbproject/Makefile-${CND_CONF}.mk ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/damagebot
+	"${MAKE}"  -f nbproject/Makefile-${CND_CONF}.mk ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/damagebot.exe
 
-${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/damagebot: ${OBJECTFILES}
+${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/damagebot.exe: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
-	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/damagebot ${OBJECTFILES} ${LDLIBSOPTIONS} -static-libgcc -static-libstdc++ -static
+	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/damagebot ${OBJECTFILES} ${LDLIBSOPTIONS}
 
-${OBJECTDIR}/Connection.o: Connection.cpp 
-	${MKDIR} -p ${OBJECTDIR}
+${OBJECTDIR}/src/bot/DamageBot.o: src/bot/DamageBot.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/bot
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Connection.o Connection.cpp
+	$(COMPILE.cc) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/bot/DamageBot.o src/bot/DamageBot.cpp
 
-${OBJECTDIR}/PropertiesReader.o: PropertiesReader.cpp 
-	${MKDIR} -p ${OBJECTDIR}
+${OBJECTDIR}/src/events/EventDispatcher.o: src/events/EventDispatcher.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/events
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/PropertiesReader.o PropertiesReader.cpp
+	$(COMPILE.cc) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/events/EventDispatcher.o src/events/EventDispatcher.cpp
 
-${OBJECTDIR}/action/SimpleCommands.o: action/SimpleCommands.cpp 
-	${MKDIR} -p ${OBJECTDIR}/action
+${OBJECTDIR}/src/logic/simplecommands/SimpleCommands.o: src/logic/simplecommands/SimpleCommands.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/logic/simplecommands
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/action/SimpleCommands.o action/SimpleCommands.cpp
+	$(COMPILE.cc) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/logic/simplecommands/SimpleCommands.o src/logic/simplecommands/SimpleCommands.cpp
 
-${OBJECTDIR}/bot/DamageBot.o: bot/DamageBot.cpp 
-	${MKDIR} -p ${OBJECTDIR}/bot
+${OBJECTDIR}/src/main.o: src/main.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/bot/DamageBot.o bot/DamageBot.cpp
+	$(COMPILE.cc) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/main.o src/main.cpp
 
-${OBJECTDIR}/events/EventDispatcher.o: events/EventDispatcher.cpp 
-	${MKDIR} -p ${OBJECTDIR}/events
+${OBJECTDIR}/src/networking/Connection.o: src/networking/Connection.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/networking
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/events/EventDispatcher.o events/EventDispatcher.cpp
+	$(COMPILE.cc) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/networking/Connection.o src/networking/Connection.cpp
 
-${OBJECTDIR}/main.o: main.cpp 
-	${MKDIR} -p ${OBJECTDIR}
+${OBJECTDIR}/src/tools/PropertiesReader.o: src/tools/PropertiesReader.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/tools
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/main.o main.cpp
+	$(COMPILE.cc) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/tools/PropertiesReader.o src/tools/PropertiesReader.cpp
 
 # Subprojects
 .build-subprojects:
@@ -103,7 +103,7 @@ ${OBJECTDIR}/main.o: main.cpp
 # Clean Targets
 .clean-conf: ${CLEAN_SUBPROJECTS}
 	${RM} -r ${CND_BUILDDIR}/${CND_CONF}
-	${RM} ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/damagebot
+	${RM} ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/damagebot.exe
 
 # Subprojects
 .clean-subprojects:

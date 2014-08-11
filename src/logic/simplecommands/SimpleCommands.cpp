@@ -6,8 +6,8 @@
  */
 
 #include "SimpleCommands.h"
-#include "../StringLib.h"
-#include "../bot/DamageBot.h"
+#include "../../tools/StringLib.h"
+#include "../../bot/DamageBot.h"
 #include <string.h>
 
 SimpleCommands::SimpleCommands(DamageBot* _bot) {
@@ -53,7 +53,8 @@ void SimpleCommands::execute(ChatEvent* event) {
             this->bot->quit(argumentString, true);
         }
         else {
-            this->bot->quit("Damage Bot out!", true);
+            std::string str = std::string("Damage Bot out!");
+            this->bot->quit(str, true);
         }
     }
 }
