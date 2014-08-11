@@ -22,7 +22,8 @@ int Connection::makeConnection() {
     }
 #endif
     
-    this->socketId = socket(AF_INET, SOCK_STREAM, 0); // Get socket resource
+    // protocal family, socket type, something else
+    this->socketId = socket(PF_INET, SOCK_STREAM, 0); // Get socket resource
     
 #ifdef WIN32
     int sockres = static_cast<int>(this->socketId);
