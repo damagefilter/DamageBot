@@ -27,11 +27,11 @@ CLEAN_SUBPROJECTS=${CLEAN_SUBPROJECTS_${SUBPROJECTS}}
 PROJECTNAME=DamageBot
 
 # Active Configuration
-DEFAULTCONF=Debug
+DEFAULTCONF=Debug_Win
 CONF=${DEFAULTCONF}
 
 # All Configurations
-ALLCONFS=Debug Release 
+ALLCONFS=Debug_Win Release 
 
 
 # build

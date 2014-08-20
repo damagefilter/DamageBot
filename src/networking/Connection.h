@@ -27,7 +27,7 @@ class Connection {
 private:
     int port; // port to connect to
     const char* host; // host to connect to
-#ifdef WIN32
+#ifdef _WIN32
     SOCKET socketId;
 #else
     int socketId;

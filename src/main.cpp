@@ -34,9 +34,9 @@ int main(int argc, char** argv) {
     cout << "Connected successfully" << endl;
     cout << "Registering events ..." << endl;
     SimpleCommands cmds(&bot);
-    EventDispatcher::instance()->registerDelegate(
-        Delegate::create<SimpleCommands, (void (SimpleCommands::*)(Event*))&SimpleCommands::execute>(&cmds, STANDARD_CHAT)
-    );
+//    EventDispatcher::instance()->registerDelegate(
+//        Delegate::create<SimpleCommands, (void (SimpleCommands::*)(Event*))&SimpleCommands::execute>(&cmds, STANDARD_CHAT)
+//    );
     bot.login(0);
     cout << "Logged in as " << props.getString("nick") << endl;
 

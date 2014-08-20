@@ -6,12 +6,15 @@
  */
 
 #include "SimpleCommands.h"
+#include "../../events/EventType.h"
 #include "../../tools/StringLib.h"
 #include "../../bot/DamageBot.h"
 #include <string.h>
 
 SimpleCommands::SimpleCommands(DamageBot* _bot) {
     this->bot = _bot;
+    EventDispatcher::instance()->registerDelegate(
+            this->bindDelegate<(LocalMethod)&SimpleCommands::execute>(), STANDARD_CHAT);
 }
 
 void SimpleCommands::execute(ChatEvent* event) {

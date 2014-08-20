@@ -10,12 +10,12 @@
 
 #include "../../bot/DamageBot.h"
 #include "../../events/ChatEvent.h"
+#include "../../events/EventHandler.h"
 /**
  * Supplies the bot with a few simple commands,
  * namely join, part, quit and say
- * @param bot
  */
-class SimpleCommands {
+class SimpleCommands : public EventHandler<SimpleCommands> {
 public:
     /**
      * Make new SimpleCommands object.
@@ -24,6 +24,7 @@ public:
      */
     SimpleCommands(DamageBot* _bot);
     void execute(ChatEvent* event);
+    
 private:
     DamageBot* bot;
 };

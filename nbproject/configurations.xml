@@ -23,10 +23,13 @@
           <itemPath>src/events/Event.h</itemPath>
           <itemPath>src/events/EventDispatcher.cpp</itemPath>
           <itemPath>src/events/EventDispatcher.h</itemPath>
+          <itemPath>src/events/EventHandler.h</itemPath>
           <itemPath>src/events/EventType.h</itemPath>
         </logicalFolder>
         <logicalFolder name="logic" displayName="logic" projectFiles="true">
           <logicalFolder name="chatbot" displayName="chatbot" projectFiles="true">
+            <itemPath>src/logic/chatbot/ChatbotHandler.cpp</itemPath>
+            <itemPath>src/logic/chatbot/ChatbotHandler.h</itemPath>
             <itemPath>src/logic/chatbot/ResponseNode.h</itemPath>
           </logicalFolder>
           <logicalFolder name="simplecommands"
@@ -64,15 +67,25 @@
       <itemPath>Makefile</itemPath>
     </logicalFolder>
   </logicalFolder>
+  <sourceRootList>
+    <Elem>src</Elem>
+  </sourceRootList>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
-    <conf name="Debug" type="1">
+    <conf name="Debug_Win" type="1">
       <toolsSet>
         <compilerSet>default</compilerSet>
         <dependencyChecking>true</dependencyChecking>
         <rebuildPropChanged>false</rebuildPropChanged>
       </toolsSet>
       <compileType>
+        <ccTool>
+          <standard>8</standard>
+          <commandLine>-static-libgcc -static-libstdc++</commandLine>
+        </ccTool>
+        <linkerTool>
+          <commandLine>-lws2_32</commandLine>
+        </linkerTool>
       </compileType>
       <item path="src/bot/DamageBot.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -88,7 +101,16 @@
       </item>
       <item path="src/events/EventDispatcher.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/events/EventHandler.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/events/EventType.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/logic/chatbot/ChatbotHandler.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/logic/chatbot/ChatbotHandler.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/logic/chatbot/ResponseNode.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -153,7 +175,16 @@
       </item>
       <item path="src/events/EventDispatcher.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/events/EventHandler.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/events/EventType.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/logic/chatbot/ChatbotHandler.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/logic/chatbot/ChatbotHandler.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/logic/chatbot/ResponseNode.h" ex="false" tool="3" flavor2="0">
       </item>

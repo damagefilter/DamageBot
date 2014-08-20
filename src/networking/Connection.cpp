@@ -13,7 +13,7 @@ Connection::Connection(const char* host, int port) {
 
 int Connection::makeConnection() {
     // So much ifdef madness .... :D
-#ifdef WIN32
+#ifdef _WIN32
     // This is a winsocks thing and needs doing ... win32 API is terrible btw
     WSADATA wsa;
     if (WSAStartup(MAKEWORD(2, 0), &wsa) != 0) {
@@ -25,7 +25,7 @@ int Connection::makeConnection() {
     // protocal family, socket type, something else
     this->socketId = socket(PF_INET, SOCK_STREAM, 0); // Get socket resource
     
-#ifdef WIN32
+#ifdef _WIN32
     int sockres = static_cast<int>(this->socketId);
 #else
     int sockres = socketId;
@@ -60,7 +60,7 @@ int Connection::makeConnection() {
 }
 
 void Connection::closeConnection() {
-#ifdef WIN32
+#ifdef _WIN32
     closesocket(this->socketId);
     WSACleanup();
 #else

@@ -37,6 +37,7 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 OBJECTFILES= \
 	${OBJECTDIR}/src/bot/DamageBot.o \
 	${OBJECTDIR}/src/events/EventDispatcher.o \
+	${OBJECTDIR}/src/logic/chatbot/ChatbotHandler.o \
 	${OBJECTDIR}/src/logic/simplecommands/SimpleCommands.o \
 	${OBJECTDIR}/src/main.o \
 	${OBJECTDIR}/src/networking/Connection.o \
@@ -76,6 +77,11 @@ ${OBJECTDIR}/src/events/EventDispatcher.o: src/events/EventDispatcher.cpp
 	${MKDIR} -p ${OBJECTDIR}/src/events
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/events/EventDispatcher.o src/events/EventDispatcher.cpp
+
+${OBJECTDIR}/src/logic/chatbot/ChatbotHandler.o: src/logic/chatbot/ChatbotHandler.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/logic/chatbot
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/logic/chatbot/ChatbotHandler.o src/logic/chatbot/ChatbotHandler.cpp
 
 ${OBJECTDIR}/src/logic/simplecommands/SimpleCommands.o: src/logic/simplecommands/SimpleCommands.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/logic/simplecommands
