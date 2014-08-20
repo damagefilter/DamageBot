@@ -14,10 +14,10 @@
 SimpleCommands::SimpleCommands(DamageBot* _bot) {
     this->bot = _bot;
     EventDispatcher::instance()->registerDelegate(
-            this->bindDelegate<(LocalMethod)&SimpleCommands::execute>(), STANDARD_CHAT);
+            this->bindDelegate<(LocalMethod)&SimpleCommands::handleChat>(), STANDARD_CHAT);
 }
 
-void SimpleCommands::execute(ChatEvent* event) {
+void SimpleCommands::handleChat(ChatEvent* event) {
      if (event->getSender() != this->bot->getOwner()) {
         // simple, not owner, not allowed.
         return;

@@ -23,7 +23,7 @@ public:
      * @param bot
      */
     SimpleCommands(DamageBot* _bot);
-    void execute(ChatEvent* event);
+    void handleChat(ChatEvent* event);
     
 private:
     DamageBot* bot;
