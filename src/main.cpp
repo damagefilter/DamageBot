@@ -14,7 +14,7 @@ int main(int argc, char** argv) {
     bot.init();
     if(!Connection::instance()->isConnected()) {
         cout << "Connection failed, sry bro!";
-        return -1;
+        return 1;
     }
     cout << "Connected successfully" << endl;
     cout << "Registering events ..." << endl;

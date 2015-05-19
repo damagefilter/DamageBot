@@ -105,6 +105,10 @@ private:
         if(StringLib::startsWith(buffer, ":")) {
             prefixEnd = buffer.find(" ");
             _prefix = buffer.substr(1, prefixEnd - 1);
+            // Not a valid prefix
+            if (_prefix.find("!") == std::string::npos) {
+                _prefix.clear();
+            }
         }
 
         // Grab the trailing if it is present. If a message contains
@@ -120,7 +124,7 @@ private:
 
         if(_prefix != "\0") {
             // This should always be set but according to IRC protocol, this appears to be optional ... hu
-            std::vector<std::string> senderAndHost = StringLib::split(_prefix, '!');
+            std::vector<std::string>& senderAndHost = *StringLib::split(_prefix, "!");
             this->sender = senderAndHost[0]; // First element is username according to format user!user@host
             if(senderAndHost.size() > 1) {
                 ulong splitPos = senderAndHost[1].find("@");
@@ -137,7 +141,7 @@ private:
 
         }
 
-        std::vector<std::string> cmdAndParams = StringLib::split(buffer.substr(prefixEnd + 1, trailingStart - prefixEnd - 1), ' ');
+        std::vector<std::string>& cmdAndParams = *StringLib::split(buffer.substr(prefixEnd + 1, trailingStart - prefixEnd - 1), " ");
         _command = cmdAndParams[0];
         if(cmdAndParams.size() > 1) {
             unsigned long nameSpacer = _message.find(" ");

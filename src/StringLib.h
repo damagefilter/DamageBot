@@ -8,24 +8,43 @@
 #include <vector>
 #include <string>
 #include <sstream>
+#include <iostream>
 
 class StringLib {
 public:
     // String splitting from here: http://stackoverflow.com/questions/236129/how-to-split-a-string-in-c
-    /**
-     * Split a string by a given delmiter into a vector of strings
-     * @param input
-     * @param delim
-     * @return
-     * TODO: Find a way to split strings by tokens
-     */
-    static std::vector<std::string> split(const std::string &input, char delim) {
-        std::stringstream ss(input);
-        std::string item;
-        std::vector<std::string> elems;
-        while (std::getline(ss, item, delim)) {
-            elems.push_back(item);
+
+    static std::vector<std::string>* split(const std::string& str, const std::string&delimiter, const std::string& trim = "\r\n") {
+        // from here: http://www.zedwood.com/article/106/cpp-explode-function
+        // from here: http://stackoverflow.com/questions/890164/how-can-i-split-a-string-by-a-delimiter-into-an-array
+        std::vector<std::string> *elems = new std::vector<std::string>();
+
+        auto strleng = str.length();
+        auto delleng = delimiter.length();
+        if (delleng == 0)
+            return elems;//no change
+
+        unsigned long i = 0;
+        unsigned long k = 0;
+        // sure is complicated ...
+        while (i < strleng) {
+            int j = 0;
+            while (i + j < strleng && j < delleng && str[i + j] == delimiter[j]) {
+                j++;
+            }
+            if (j == delleng) {
+                auto substring = str.substr(k, i - k);
+                StringLib::trim(substring, trim);
+
+                elems->push_back(substring);
+                i += delleng;
+                k = i;
+            }
+            else {
+                i++;
+            }
         }
+        elems->push_back(str.substr(k, i - k));
         return elems;
     }
 
@@ -38,6 +57,13 @@ public:
     static bool startsWith(const std::string& input, const std::string& check) {
         return input.find(check) == 0;
 //        return input.compare(0, strlen(check)-1, check) == 0;
+    }
+
+    static void trim(std::string& str, const std::string& trimThis) {
+        std::string::size_type pos = 0; // For storing stuff
+        while ((pos = str.find(trimThis, pos)) != std::string::npos) {
+            str.erase(pos, trimThis.length());
+        }
     }
 private:
 
