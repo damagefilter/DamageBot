@@ -92,7 +92,7 @@ public:
     }
 
 private:
-    char messageBuffer[Connection::MAX_BUFFER_SIZE];
+    std::string messageBuffer;
     std::string nick;
     std::string user;
     std::string owner;
@@ -101,6 +101,7 @@ private:
     std::vector<std::string> channels;
     std::string activeChannel;
     std::vector<EventHandler*> handlerList;
+    bool motdFinished;
 };
 
 

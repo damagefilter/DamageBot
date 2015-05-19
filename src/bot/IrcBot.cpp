@@ -4,13 +4,12 @@
 #include<algorithm>
 #include "IrcBot.h"
 #include "../events/ChatEvent.h"
-//#include "../events/EventDispatcher.h"
-//#include "../events/ChatEvent.h"
 
 IrcBot::IrcBot(const std::string &_nick, const std::string &_user, const std::string &_owner) {
     this->nick = _nick;
     this->user = _user;
     this->owner = _owner;
+    this->motdFinished = false;
 }
 
 void IrcBot::init() {
@@ -18,8 +17,9 @@ void IrcBot::init() {
 }
 
 bool IrcBot::doPong(const std::string& message) {
-    unsigned long pingPos = message.find("PING");
-    if(pingPos != std::string::npos) {
+    // "Real" pings are the ones where the message string starts with PING.
+    if(StringLib::startsWith(message, "PING")) {
+        unsigned long pingPos = message.find("PING");
         this->con->sendMessage("PONG"+message.substr(pingPos+4)+"\r\n");
         return true;
     }
@@ -50,12 +50,17 @@ void IrcBot::sendPrivateMessage(const std::string& message, const std::string& u
 
 void IrcBot::processMessage() {
     // Empty the string
-    memset(&messageBuffer[0], 0, sizeof(messageBuffer));
-    this->con->read(messageBuffer);
+    this->con->readLine(messageBuffer);
     std::cout << messageBuffer << std::endl;
-    std::string stringBuffer(messageBuffer);
-    if(!doPong(stringBuffer)) {
-        EventDispatcher::instance()->call(new ChatEvent(stringBuffer));
+    if(!doPong(messageBuffer)) {
+        EventDispatcher::instance()->call(new ChatEvent(messageBuffer));
+    }
+    // Not in any channel
+    if (!this->motdFinished && channels.size() == 0) {
+        if (messageBuffer.find("/MOTD") != std::string::npos) {
+            this->joinChannel("some_channel"); // TODO: read from cfg
+            this->motdFinished = true;
+        }
     }
 }
 
@@ -85,6 +90,6 @@ void IrcBot::quit(const std::string &message, bool terminate) {
     this->con->sendMessage("QUIT :" + message + "\r\n");
     if (terminate) {
         this->con->closeConnection();
-        throw std::exception(); // close application
+        exit(0); // Normal termination
     }
 }

@@ -18,6 +18,7 @@
 #endif
 
 #include "../tools/PropertiesReader.h"
+#include <vector>
 
 
 class Connection {
@@ -32,6 +33,7 @@ private:
 
 public:
     static const int MAX_BUFFER_SIZE = 4096;
+    std::string readBuffer;
     /**
      * Get the connection instance
      * @return the connection instance
@@ -66,10 +68,12 @@ public:
     void sendMessage(const std::string &message);
 
     /**
-     * Reads from the stream socket and fills the given buffer with data
+     * Reads from the connection until a line feed is reached.
+     * Then assigned the read-out buffer to the command string
+     *
      * @param buffer
      */
-    void read(char* buffer);
+    void readLine(std::string &command);
 private:
     Connection(const std::string &host, int port);
     Connection(const Connection& c);

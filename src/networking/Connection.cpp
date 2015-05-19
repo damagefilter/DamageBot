@@ -5,6 +5,7 @@
 #include <stdio.h>
 #include <iostream>
 #include <string.h>
+#include <algorithm>
 
 #include "Connection.h"
 
@@ -82,9 +83,23 @@ void Connection::sendMessage(const std::string &message) {
     send(this->socketId, message.c_str(), message.length(), 0);
 }
 
-void Connection::read(char* buffer) {
-    if (recv(this->socketId, buffer, Connection::MAX_BUFFER_SIZE * sizeof (char), 0) < 0) {
-        perror("Failed to read from stream socket ...");
-    }
+void Connection::readLine(std::string &command) {
+    size_t pos;
+    // read until we hit line feed
 
+    while ((pos = readBuffer.find("\r\n")) == std::string::npos) {
+        char buf[Connection::MAX_BUFFER_SIZE+1]; // +1 for the extra terminating 0 bit that a std::string must have
+        ssize_t n = read(this->socketId, buf, Connection::MAX_BUFFER_SIZE);
+        if (n == -1) {
+            perror("Failed to read from socket!");
+            this->readBuffer.clear();
+            return;
+        }
+        buf[n] = 0; // add the terminating 0 char
+        readBuffer.append(buf);
+    }
+    // Strips possible trailing ends
+    command.assign(readBuffer.substr(0, pos));
+    // +2 to remove the \r\n (2 chars)
+    readBuffer = readBuffer.substr(pos+2, readBuffer.length());
 }

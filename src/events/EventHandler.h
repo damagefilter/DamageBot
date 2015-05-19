@@ -15,12 +15,6 @@
 class EventHandler {
 public:
     virtual ~EventHandler() {};
-
-protected:
-//    template<LocalMethod callback>
-//    Delegate* bindDelegate() {
-//        return Delegate::create<TImplementation, callback>((TImplementation*)this);
-//    }
 };
 
 #endif //IRCBOT_EVENTHANDLER_H
