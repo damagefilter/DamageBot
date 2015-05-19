@@ -1,21 +1,17 @@
-/* 
- * File:   Event.h
- * Author: kchristoph
- *
- * Created on 10. Juni 2014, 11:59
- */
+//
+// Created by chris on 18.05.15.
+//
 
-#ifndef EVENT_H
-#define	EVENT_H
-#include "EventType.h"
+#ifndef IRCBOT_EVENT_H
+#define IRCBOT_EVENT_H
+#include <string>
+
 class Event {
 public:
-    EventType getType() {
+    const std::string& getName() {
         return type;
     }
 protected:
-    EventType type;
+    std::string type;
 };
-
-#endif	/* EVENT_H */
-
+#endif //IRCBOT_EVENT_H

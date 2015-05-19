@@ -24,5 +24,6 @@
 build/
 dist/
 nbproject/private/
+.idea
 
 *.dep.inc

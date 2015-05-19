@@ -1,16 +1,14 @@
-/* 
- * File:   Connection.h
- * Author: kchristoph
- *
- * Created on 5. Juni 2014, 14:02
- */
+//
+// Created by chris on 18.05.15.
+//
 
-#ifndef CONNECTION_H
-#define	CONNECTION_H
+#ifndef IRCBOT_CONNECTION_H
+#define IRCBOT_CONNECTION_H
 
 #if defined(WIN32) || defined(_WIN32)
 #include <winsock2.h>
 #else
+// In Linux we need a little more stuff for inclusion
 #include <sys/socket.h>
 #include <sys/types.h>
 #include <netinet/in.h>
@@ -20,19 +18,18 @@
 #endif
 
 #include "../tools/PropertiesReader.h"
-/**
- Represents a TCP Socket connection
- */
+
+
 class Connection {
 private:
     int port; // port to connect to
-    const char* host; // host to connect to
+    std::string host; // host to connect to
 #ifdef _WIN32
     SOCKET socketId;
 #else
     int socketId;
 #endif
-    
+
 public:
     static const int MAX_BUFFER_SIZE = 4096;
     /**
@@ -49,37 +46,35 @@ public:
      * @return the resource handle or -1 on failure
      */
     int makeConnection();
-    
+
     /**
      * Closes the stream socket and releases the resource handle
      */
     void closeConnection();
-    
-    
+
+
     /**
      * Check if this Connection is properly connected to the endpoint
-     * @return 
+     * @return
      */
     bool isConnected();
-    
+
     /**
      * Sends the given data via the socket to the upstream.
      * @param message the message to send
      */
-    void sendMessage(const char* message);
-    
+    void sendMessage(const std::string &message);
+
     /**
      * Reads from the stream socket and fills the given buffer with data
      * @param buffer
      */
     void read(char* buffer);
 private:
-    Connection(const char* host, int port);
+    Connection(const std::string &host, int port);
     Connection(const Connection& c);
     void operator=(const Connection& c);
-    
+
     bool _isConnected;
 };
-
-#endif	/* CONNECTION_H */
-
+#endif //IRCBOT_CONNECTION_H

@@ -1,24 +1,17 @@
-/* 
- * File:   SimpleCommands.cpp
- * Author: kchristoph
- * 
- * Created on 11. Juni 2014, 16:58
- */
+//
+// Created by chris on 18.05.15.
+//
 
 #include "SimpleCommands.h"
-#include "../../events/EventType.h"
-#include "../../tools/StringLib.h"
-#include "../../bot/DamageBot.h"
-#include <string.h>
 
-SimpleCommands::SimpleCommands(DamageBot* _bot) {
+SimpleCommands::SimpleCommands(IrcBot* _bot) {
     this->bot = _bot;
-    EventDispatcher::instance()->registerDelegate(
-            this->bindDelegate<(LocalMethod)&SimpleCommands::handleChat>(), STANDARD_CHAT);
+    auto delegate = Delegate<SimpleCommands, ChatEvent>::create(*this, &SimpleCommands::handleChat);
+    EventDispatcher::instance()->registerDelegate(delegate, ChatEvent().getName());
 }
 
 void SimpleCommands::handleChat(ChatEvent* event) {
-     if (event->getSender() != this->bot->getOwner()) {
+    if (event->getSender() != this->bot->getOwner()) {
         // simple, not owner, not allowed.
         return;
     }
@@ -30,35 +23,33 @@ void SimpleCommands::handleChat(ChatEvent* event) {
     // According to previous parse, message would start with something like "!join somethingsomething"
     std::string command = message.substr(0, message.find(" "));
     // Gimmeh dem arguments
-    int splitpos = message.find(" ");
+    unsigned long splitpos = message.find(" ");
     std::string argumentString;
     // Takes away the preceeding whitespace
     if(splitpos != std::string::npos && splitpos+1 < message.size()) {
-        argumentString= message.substr(splitpos+1);
+        argumentString = message.substr(splitpos+1);
     }
     else {
-        argumentString= message;
+        argumentString = message;
     }
-    
+
     std::vector<std::string> arguments = StringLib::split(argumentString, ' ');
     if(command == "!join" && arguments.size() >= 1) {
         std::string channel = arguments[0].substr(1);// Remove the #
-        this->bot->joinChannel(channel); 
+        this->bot->joinChannel(channel);
     }
-    
+
     if(command == "!part" && arguments.size() >= 1) {
         std::string channel = arguments[0].substr(1);// Remove the #
-        this->bot->partChannel(channel); 
+        this->bot->partChannel(channel);
     }
-    
+
     if(command == "!quit") {
         if(arguments.size() >= 1) {
             this->bot->quit(argumentString, true);
         }
         else {
-            std::string str = std::string("Damage Bot out!");
-            this->bot->quit(str, true);
+            this->bot->quit("Damage Bot out!", true);
         }
     }
 }
-

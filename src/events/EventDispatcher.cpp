@@ -1,38 +1,36 @@
-/* 
- * File:   EventDispatcher.cpp
- * Author: kchristoph
- * 
- * Created on 10. Juni 2014, 14:39
- */
-
+//
+// Created by chris on 18.05.15.
+//
 
 #include "EventDispatcher.h"
-#include "Event.h"
-#include "Delegate.h"
+#include <algorithm> // for std::find
 
-void EventDispatcher::registerDelegate(Delegate* delegate, EventType type) {
+void EventDispatcher::registerDelegate(IDelegate* delegate, const std::string &type) {
     if (this->registeredListeners.count(type) <= 0) {
         this->registeredListeners[type] = DelegateList();
     }
     this->registeredListeners[type].push_back(delegate);
 }
 
-void EventDispatcher::unregisterDelegate(Delegate* delegate, EventType type) {
-    // TODO: Implement this
-//    DelegateList& vec = this->registeredListeners[type];
-    // Hrmpf wtf...
-//    vec.remove(delegate);
+void EventDispatcher::unregisterDelegate(IDelegate* delegate, const std::string &type) {
+    DelegateList& vec = this->registeredListeners[type];
+    // ya know, could just add indexOf to vectors and such ...
+    auto it = std::find(vec.begin(), vec.end(), delegate);
+    if (it != vec.end()) {
+        vec.erase(it);
+    }
+    if (vec.size() <= 0) {
+        this->registeredListeners.erase(type);
+        // supposedly vec doesn't need deleting as it's only a reference which is kept by the listener map.
+    }
 }
 
 void EventDispatcher::call(Event* event) {
-    if (this->registeredListeners.count(event->getType()) <= 0) {
+    if (this->registeredListeners.count(event->getName()) <= 0) {
         return;
     }
-    DelegateList& relevant = registeredListeners[event->getType()];
+    DelegateList& relevant = registeredListeners[event->getName()];
     for (DelegateList::size_type i = 0; i < relevant.size(); ++i) {
-        relevant[i]->call(event); // calls the wrapped function
+        relevant[i]->call(event);
     }
 }
-
-
-

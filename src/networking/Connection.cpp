@@ -1,14 +1,18 @@
+//
+// Created by chris on 18.05.15.
+//
+
 #include <stdio.h>
 #include <iostream>
 #include <string.h>
 
 #include "Connection.h"
 
-Connection::Connection(const char* host, int port) {
-    this->host = host;
+Connection::Connection(const std::string &horst, int port) {
+    this->host = horst;
     this->port = port;
     _isConnected = makeConnection() > 0;
-    
+
 }
 
 int Connection::makeConnection() {
@@ -21,29 +25,29 @@ int Connection::makeConnection() {
         return -1;
     }
 #endif
-    
-    // protocal family, socket type, something else
+
+    // protocol family, socket type, something else
     this->socketId = socket(PF_INET, SOCK_STREAM, 0); // Get socket resource
-    
+
 #ifdef _WIN32
     int sockres = static_cast<int>(this->socketId);
 #else
     int sockres = socketId;
 #endif
-    
+
     if(sockres < 0) {
         perror("Failed to open Socket.");
         this->closeConnection();
         return -1;
     }
-    
-    hostent* hp = gethostbyname(this->host);
+
+    hostent* hp = gethostbyname(this->host.c_str());
     if(!hp) {
         perror("Could not resolve host name!");
         this->closeConnection();
         return -1;
     }
-    
+
     sockaddr_in sockIn;
     memset((char*)&sockIn, 0, sizeof(sockIn));
     memcpy((char*)&sockIn.sin_addr, hp->h_addr, hp->h_length);
@@ -72,10 +76,10 @@ bool Connection::isConnected() {
     return _isConnected;
 }
 
-void Connection::sendMessage(const char* message) {
+void Connection::sendMessage(const std::string &message) {
     // socket id, message, message size, send flags
     std::cout << "SENDING: " << message << std::endl;
-    send(this->socketId, message, strlen(message), 0);
+    send(this->socketId, message.c_str(), message.length(), 0);
 }
 
 void Connection::read(char* buffer) {

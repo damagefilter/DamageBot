@@ -1,9 +1,6 @@
-/* 
- * File:   PropertiesReader.cpp
- * Author: kchristoph
- * 
- * Created on 6. Juni 2014, 13:01
- */
+//
+// Created by chris on 18.05.15.
+//
 
 #include <fstream>
 #include <iostream>
@@ -12,11 +9,11 @@
 
 #include "PropertiesReader.h"
 
-PropertiesReader::PropertiesReader(const char* fileName) {
+PropertiesReader::PropertiesReader(const std::string &fileName) {
     std::ifstream file(fileName);
     std::string line;
     while(std::getline(file, line)) {
-        int splitPosition = line.find("="); // find first = symbol to split by
+        auto splitPosition = line.find("="); // find first = symbol to split by
         if(splitPosition == std::string::npos) {
             continue; // Invalid format
         }
@@ -24,24 +21,23 @@ PropertiesReader::PropertiesReader(const char* fileName) {
     }
 }
 
-int PropertiesReader::getInteger(const char* key) {
+int PropertiesReader::getInteger(const std::string &key) {
     if(!containsKey(key)) {
         return 0;
     }
     return atoi(this->data[key].c_str());
 }
 
-float PropertiesReader::getFloat(const char* key) {
+float PropertiesReader::getFloat(const std::string &key) {
     if(!containsKey(key)) {
         return 0.0f;
     }
-    return atof(this->data[key].c_str());
+    return (float)atof(this->data[key].c_str());
 }
 
-const char* PropertiesReader::getString(const char* key) {
+std::string PropertiesReader::getString(const std::string &key) {
     if(!containsKey(key)) {
         return "key not found";
     }
     return this->data[key].c_str();
 }
-
