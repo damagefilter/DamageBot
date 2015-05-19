@@ -84,6 +84,13 @@ public:
         return this->owner;
     }
 
+    /**
+     * Set the active channel the bot is speaking to.
+     */
+    void setActiveChannel(const std::string& channel) {
+        this->activeChannel = channel;
+    }
+
 private:
     char messageBuffer[Connection::MAX_BUFFER_SIZE];
     std::string nick;
@@ -91,7 +98,7 @@ private:
     std::string owner;
     Connection* con;
     // Channels we're connected to
-    std::list<std::string> channels;
+    std::vector<std::string> channels;
     std::string activeChannel;
     std::vector<EventHandler*> handlerList;
 };

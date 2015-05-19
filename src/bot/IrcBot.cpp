@@ -1,6 +1,7 @@
 #include <string.h>
 #include <iostream>
 #include <stdexcept>
+#include<algorithm>
 #include "IrcBot.h"
 #include "../events/ChatEvent.h"
 //#include "../events/EventDispatcher.h"
@@ -10,7 +11,6 @@ IrcBot::IrcBot(const std::string &_nick, const std::string &_user, const std::st
     this->nick = _nick;
     this->user = _user;
     this->owner = _owner;
-//    this->activeChannel;
 }
 
 void IrcBot::init() {
@@ -64,20 +64,26 @@ void IrcBot::addHandler(EventHandler *handler) {
 }
 
 
-void IrcBot::joinChannel(const std::string& channel) {
-    //std::string toSend("JOIN #"+channel+"\r\n");
-    this->con->sendMessage("JOIN #"+channel+"\r\n");
+void IrcBot::joinChannel(const std::string &channel) {
+    this->con->sendMessage("JOIN #" + channel + "\r\n");
+    this->activeChannel = channel;
+    this->channels.push_back(channel);
 }
 
-void IrcBot::partChannel(const std::string& channel) {
-//    std::string toSend("PART #"+channel+"\r\n");
-    this->con->sendMessage("PART #"+channel+"\r\n");
+void IrcBot::partChannel(const std::string &channel) {
+//    StringLib::trim(channel, "\r\n");
+    this->con->sendMessage("PART #" + channel + "\r\n");
+    auto it = std::find(this->channels.begin(), this->channels.end(), channel);
+    if (it != this->channels.end()) {
+        this->channels.erase(it);
+    }
+
 }
 
-void IrcBot::quit(const std::string& message, bool terminate) {
-    //std::string toSend("QUIT :"+message+"\r\n");
-    this->con->sendMessage("QUIT :"+message+"\r\n");
-    if(terminate) {
+void IrcBot::quit(const std::string &message, bool terminate) {
+//    StringLib::trim(message, "\r\n");
+    this->con->sendMessage("QUIT :" + message + "\r\n");
+    if (terminate) {
         this->con->closeConnection();
         throw std::exception(); // close application
     }

@@ -20,7 +20,10 @@ void SimpleCommands::handleChat(ChatEvent* event) {
         // not a command
         return;
     }
-    // According to previous parse, message would start with something like "!join somethingsomething"
+    if (event->isChannelChat()) {
+        this->bot->setActiveChannel(event->getRecipient());
+    }
+    // message would start with something like "!join somethingsomething"
     std::string command = message.substr(0, message.find(" "));
     // Gimmeh dem arguments
     unsigned long splitpos = message.find(" ");
@@ -32,16 +35,27 @@ void SimpleCommands::handleChat(ChatEvent* event) {
     else {
         argumentString = message;
     }
-
-    std::vector<std::string> arguments = StringLib::split(argumentString, ' ');
+    StringLib::trim(argumentString, "\r\n");
+    std::vector<std::string>& arguments = *StringLib::split(argumentString, " ");
     if(command == "!join" && arguments.size() >= 1) {
         std::string channel = arguments[0].substr(1);// Remove the #
+        StringLib::trim(channel, "\r\n");
         this->bot->joinChannel(channel);
     }
 
     if(command == "!part" && arguments.size() >= 1) {
         std::string channel = arguments[0].substr(1);// Remove the #
+        StringLib::trim(channel, "\r\n");
         this->bot->partChannel(channel);
+    }
+
+    if(command == "!say") {
+        if(arguments.size() >= 1) {
+            this->bot->sendChannelMessage(argumentString);
+        }
+        else {
+            this->bot->sendChannelMessage("Argument size is smaller 1. Argument String is: " + argumentString);
+        }
     }
 
     if(command == "!quit") {
