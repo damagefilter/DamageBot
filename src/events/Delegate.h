@@ -22,9 +22,8 @@ public:
      * @param instance a pointer to an instance of the given class type
      * @return new Delegate object with a binding to given class and function pointer
      */
-    static Delegate create(T& instance, Method method) {
-        Delegate<T, TArgument> del(instance, method);
-        return del;
+    static Delegate* create(T& instance, Method method) {
+        return new Delegate<T, TArgument>(instance, method);
     }
 
     /**
