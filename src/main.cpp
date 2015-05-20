@@ -20,7 +20,7 @@ int main(int argc, char** argv) {
     cout << "Registering events ..." << endl;
     SimpleCommands cmds(&bot);
     bot.addHandler(&cmds);
-    bot.login("");
+    bot.login(props.getString("defaultChannel"), "");
     cout << "Logged in as " << props.getString("nick") << endl;
 
     cout << "Start processing messages ..." << endl;

@@ -1,4 +1,3 @@
-#include <string.h>
 #include <iostream>
 #include <stdexcept>
 #include<algorithm>
@@ -26,7 +25,7 @@ bool IrcBot::doPong(const std::string& message) {
     return false;
 }
 
-void IrcBot::login(const std::string& password) {
+void IrcBot::login(const std::string &initialChannel, const std::string &password) {
     std::string buf;
     this->con->sendMessage(buf.append("NICK ").append(this->nick).append("\r\n"));
     buf.clear();
@@ -37,6 +36,7 @@ void IrcBot::login(const std::string& password) {
         this->con->sendMessage(buf.append("PRIVMSG NickServ IDENTIFY ").append(password).append("\r\n"));
         buf.clear();
     }
+    this->activeChannel = initialChannel;
 }
 
 void IrcBot::sendChannelMessage(const std::string& message) {
@@ -58,7 +58,9 @@ void IrcBot::processMessage() {
     // Not in any channel
     if (!this->motdFinished && channels.size() == 0) {
         if (messageBuffer.find("/MOTD") != std::string::npos) {
-            this->joinChannel("some_channel"); // TODO: read from cfg
+            if (activeChannel.length() > 0) {
+                this->joinChannel(activeChannel);
+            }
             this->motdFinished = true;
         }
     }

@@ -21,7 +21,7 @@ void SimpleCommands::handleChat(ChatEvent* event) {
         return;
     }
     if (event->isChannelChat()) {
-        this->bot->setActiveChannel(event->getRecipient());
+        this->bot->setActiveChannel(event->getRecipient().substr(1));
     }
     // message would start with something like "!join somethingsomething"
     std::string command = message.substr(0, message.find(" "));

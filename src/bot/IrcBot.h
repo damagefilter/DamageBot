@@ -46,7 +46,7 @@ public:
      * @param password  the password to authenticate at a nickserv.
      *                  pass 0 to not do nickserv auth
      */
-    void login(const std::string &password);
+    void login(const std::string &initialChannel, const std::string &password = "");
 
     void processMessage();
 

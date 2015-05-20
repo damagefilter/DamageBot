@@ -94,7 +94,7 @@ private:
     void parseInput(const std::string &buffer) {
         unsigned long prefixEnd = 0;
         std::string _prefix = "\0";
-        std::string _trailing = "\0";
+        std::string message = "\0";
         std::string _command = "\0";
         std::string _message = "\0";
         // Grab the prefix if it is present. If a message begins
@@ -105,56 +105,53 @@ private:
         if(StringLib::startsWith(buffer, ":")) {
             prefixEnd = buffer.find(" ");
             _prefix = buffer.substr(1, prefixEnd - 1);
-            // Not a valid prefix
-            if (_prefix.find("!") == std::string::npos) {
-                _prefix.clear();
-            }
         }
 
         // Grab the trailing if it is present. If a message contains
         // a space immediately following a colon, all characters after
-        // the colon are the trailing part.
-        unsigned long trailingStart = buffer.find(" :");
-        if(trailingStart != std::string::npos) {
-            _trailing = buffer.substr(trailingStart + 2);
+        // the colon are the message part.
+        unsigned long messageStart = buffer.find(" :");
+        if(messageStart != std::string::npos) {
+            message = buffer.substr(messageStart + 2);
         }
         else {
-            trailingStart = buffer.length();
+            messageStart = buffer.length();
         }
 
-        if(_prefix != "\0") {
-            // This should always be set but according to IRC protocol, this appears to be optional ... hu
-            std::vector<std::string>& senderAndHost = *StringLib::split(_prefix, "!");
-            this->sender = senderAndHost[0]; // First element is username according to format user!user@host
-            if(senderAndHost.size() > 1) {
-                ulong splitPos = senderAndHost[1].find("@");
-                if(splitPos != std::string::npos) {
-                    this->host = senderAndHost[1].substr(splitPos); // After the @ comes the host
+        if(_prefix.length() > 0) {
+            // There are messages where the prefix does not contain the ! meaning there is no user that sent it
+            // Possibly system message
+            if (_prefix.find("!") != std::string::npos) {
+                std::vector<std::string>& senderAndHost = *StringLib::split(_prefix, "!");
+                this->sender = senderAndHost[0]; // First element is username according to format user!user@host
+                if(senderAndHost.size() > 1) {
+                    size_t splitPos = senderAndHost[1].find("@");
+                    if(splitPos != std::string::npos) {
+                        this->host = senderAndHost[1].substr(splitPos); // After the @ comes the host
+                    }
+                    else {
+                        this->host = senderAndHost[1];
+                    }
                 }
                 else {
-                    this->host = senderAndHost[1];
+                    this->host = this->sender;
                 }
             }
             else {
-                this->host = this->sender;
+                this->sender = _prefix;
+                this->host = _prefix;
             }
-
         }
 
-        std::vector<std::string>& cmdAndParams = *StringLib::split(buffer.substr(prefixEnd + 1, trailingStart - prefixEnd - 1), " ");
+        std::vector<std::string>& cmdAndParams = *StringLib::split(buffer.substr(prefixEnd + 1, messageStart), " ");
         _command = cmdAndParams[0];
         if(cmdAndParams.size() > 1) {
-            unsigned long nameSpacer = _message.find(" ");
-            if(nameSpacer != std::string::npos) {
-                _message = cmdAndParams[1].substr(nameSpacer);
-                // First spaceless part is the name to which this message goes to
-                std::string _recipient = _message.substr(0, nameSpacer);
-                this->recipient = _recipient;
-            }
+            this->recipient = cmdAndParams[1];
+            std::cout << this->recipient << std::endl;
             this->isPrivateChat = !StringLib::startsWith(recipient, "#");
         }
-        if(_trailing != "\0") {
-            _message.append(_trailing);
+        if(message != "\0") {
+            _message.append(message);
         }
         this->message = _message;
         this->command = _command;
