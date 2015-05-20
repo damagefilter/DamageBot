@@ -12,12 +12,10 @@
 
 class StringLib {
 public:
-    // String splitting from here: http://stackoverflow.com/questions/236129/how-to-split-a-string-in-c
-
-    static std::vector<std::string>* split(const std::string& str, const std::string&delimiter, const std::string& trim = "\r\n") {
+    static std::vector<std::string> split(const std::string& str, const std::string&delimiter, const std::string& trim = "\r\n") {
         // from here: http://www.zedwood.com/article/106/cpp-explode-function
         // from here: http://stackoverflow.com/questions/890164/how-can-i-split-a-string-by-a-delimiter-into-an-array
-        std::vector<std::string> *elems = new std::vector<std::string>();
+        std::vector<std::string> elems;
 
         auto strleng = str.length();
         auto delleng = delimiter.length();
@@ -36,7 +34,7 @@ public:
                 auto substring = str.substr(k, i - k);
                 StringLib::trim(substring, trim);
 
-                elems->push_back(substring);
+                elems.push_back(substring);
                 i += delleng;
                 k = i;
             }
@@ -44,7 +42,7 @@ public:
                 i++;
             }
         }
-        elems->push_back(str.substr(k, i - k));
+        elems.push_back(str.substr(k, i - k));
         return elems;
     }
 

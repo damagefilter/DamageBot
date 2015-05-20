@@ -122,7 +122,7 @@ private:
             // There are messages where the prefix does not contain the ! meaning there is no user that sent it
             // Possibly system message
             if (_prefix.find("!") != std::string::npos) {
-                std::vector<std::string>& senderAndHost = *StringLib::split(_prefix, "!");
+                std::vector<std::string> senderAndHost = StringLib::split(_prefix, "!");
                 this->sender = senderAndHost[0]; // First element is username according to format user!user@host
                 if(senderAndHost.size() > 1) {
                     size_t splitPos = senderAndHost[1].find("@");
@@ -143,7 +143,7 @@ private:
             }
         }
 
-        std::vector<std::string>& cmdAndParams = *StringLib::split(buffer.substr(prefixEnd + 1, messageStart), " ");
+        std::vector<std::string> cmdAndParams = StringLib::split(buffer.substr(prefixEnd + 1, messageStart), " ");
         _command = cmdAndParams[0];
         if(cmdAndParams.size() > 1) {
             this->recipient = cmdAndParams[1];

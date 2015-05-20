@@ -36,7 +36,7 @@ void SimpleCommands::handleChat(ChatEvent* event) {
         argumentString = message;
     }
     StringLib::trim(argumentString, "\r\n");
-    std::vector<std::string>& arguments = *StringLib::split(argumentString, " ");
+    std::vector<std::string> arguments = StringLib::split(argumentString, " ");
     if(command == "!join" && arguments.size() >= 1) {
         std::string channel = arguments[0].substr(1);// Remove the #
         StringLib::trim(channel, "\r\n");
