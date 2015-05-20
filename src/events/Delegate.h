@@ -22,8 +22,8 @@ public:
      * @param instance a pointer to an instance of the given class type
      * @return new Delegate object with a binding to given class and function pointer
      */
-    static Delegate* create(T& instance, Method method) {
-        Delegate* del = new Delegate<T, TArgument>(instance, method);
+    static Delegate create(T& instance, Method method) {
+        Delegate<T, TArgument> del(instance, method);
         return del;
     }
 
@@ -37,10 +37,10 @@ public:
         (instance.*methodHandle)(static_cast<TArgument*>(event));
     }
 
-//    virtual ~Delegate() {
-//        methodHandle = 0;
-//        instance = 0;
-//    }
+    virtual ~Delegate() {
+        methodHandle = 0;
+        instance = 0;
+    }
 
 private:
 

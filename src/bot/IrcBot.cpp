@@ -53,7 +53,8 @@ void IrcBot::processMessage() {
     this->con->readLine(messageBuffer);
     std::cout << messageBuffer << std::endl;
     if(!doPong(messageBuffer)) {
-        EventDispatcher::instance()->call(new ChatEvent(messageBuffer));
+        ChatEvent event(messageBuffer);
+        EventDispatcher::instance()->call(&event);
     }
     // Not in any channel
     if (!this->motdFinished && channels.size() == 0) {
@@ -65,11 +66,6 @@ void IrcBot::processMessage() {
         }
     }
 }
-
-void IrcBot::addHandler(EventHandler *handler) {
-    this->handlerList.push_back(handler);
-}
-
 
 void IrcBot::joinChannel(const std::string &channel) {
     this->con->sendMessage("JOIN #" + channel + "\r\n");

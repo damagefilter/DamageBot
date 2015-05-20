@@ -18,8 +18,7 @@ int main(int argc, char** argv) {
     }
     cout << "Connected successfully" << endl;
     cout << "Registering events ..." << endl;
-    SimpleCommands cmds(&bot);
-    bot.addHandler(&cmds);
+    bot.addHandler<SimpleCommands, ChatEvent>(new SimpleCommands(&bot), &SimpleCommands::handleChat);
     bot.login(props.getString("defaultChannel"), "");
     cout << "Logged in as " << props.getString("nick") << endl;
 

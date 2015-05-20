@@ -6,8 +6,6 @@
 
 SimpleCommands::SimpleCommands(IrcBot* _bot) {
     this->bot = _bot;
-    auto delegate = Delegate<SimpleCommands, ChatEvent>::create(*this, &SimpleCommands::handleChat);
-    EventDispatcher::instance()->registerDelegate(delegate, ChatEvent().getName());
 }
 
 void SimpleCommands::handleChat(ChatEvent* event) {

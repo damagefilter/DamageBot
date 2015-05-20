@@ -69,8 +69,14 @@ public:
      * The bot will take care of freeing themup when they are not required anymore.
      *
      * @param handler the handler to add
+     * @param method a function pointer to the method to call on the handler instance
      */
-    void addHandler(EventHandler* handler);
+    template<typename Type, typename Argument>
+    void addHandler(EventHandler *handler, void (Type::*method)(Argument* arg)) {
+        auto delegate = Delegate<Type, Argument>::create(static_cast<Type&>(*handler), method);
+        EventDispatcher::instance()->registerDelegate(delegate, handler->getEventName());
+        this->handlerList.push_back(handler);
+    }
 
     std::string& getNick() {
         return this->nick;
