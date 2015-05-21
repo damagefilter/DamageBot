@@ -2,13 +2,13 @@
 // Created by chris on 18.05.15.
 //
 
-#include "SimpleCommands.h"
+#include "CommandProcessor.h"
 
-SimpleCommands::SimpleCommands(IrcBot* _bot) {
+CommandProcessor::CommandProcessor(IrcBot* _bot) {
     this->bot = _bot;
 }
 
-void SimpleCommands::handleChat(ChatEvent* event) {
+void CommandProcessor::handleChat(ChatEvent* event) {
     if (event->getSender() != this->bot->getOwner()) {
         // simple, not owner, not allowed.
         return;
@@ -66,10 +66,10 @@ void SimpleCommands::handleChat(ChatEvent* event) {
     }
 }
 
-std::string SimpleCommands::getIdentifier() {
-    return "SimpleCommands";
+std::string CommandProcessor::getIdentifier() {
+    return "CommandProcessor";
 }
-std::string SimpleCommands::getEventName() {
+std::string CommandProcessor::getEventName() {
     return ChatEvent().getName();
 }
 

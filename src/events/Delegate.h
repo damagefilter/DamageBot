@@ -18,7 +18,7 @@ public:
 
     /**
      * Return a prepared Delegate that is bound to execute a given method,
-     * on the given class instance pointer.
+     * on the given class reference.
      * @param instance a pointer to an instance of the given class type
      * @return new Delegate object with a binding to given class and function pointer
      */

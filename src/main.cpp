@@ -3,7 +3,7 @@
 #include <iostream>
 #include "tools/PropertiesReader.h"
 #include "bot/IrcBot.h"
-#include "logic/SimpleCommands.h"
+#include "logic/commands/CommandProcessor.h"
 
 using namespace std;
 
@@ -18,7 +18,7 @@ int main(int argc, char** argv) {
     }
     cout << "Connected successfully" << endl;
     cout << "Registering events ..." << endl;
-    bot.addHandler<SimpleCommands, ChatEvent>(new SimpleCommands(&bot), &SimpleCommands::handleChat);
+    bot.addHandler<CommandProcessor, ChatEvent>(new CommandProcessor(&bot), &CommandProcessor::handleChat);
     bot.login(props.getString("defaultChannel"), "");
     cout << "Logged in as " << props.getString("nick") << endl;
 
