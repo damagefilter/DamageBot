@@ -65,3 +65,11 @@ void SimpleCommands::handleChat(ChatEvent* event) {
         }
     }
 }
+
+std::string SimpleCommands::getIdentifier() {
+    return "SimpleCommands";
+}
+std::string SimpleCommands::getEventName() {
+    return ChatEvent().getName();
+}
+

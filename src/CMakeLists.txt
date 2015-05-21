@@ -4,4 +4,4 @@ project(IrcBot)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 
 set(SOURCE_FILES main.cpp)
-add_executable(IrcBot ${SOURCE_FILES} networking/Connection.h tools/PropertiesReader.h tools/PropertiesReader.cpp networking/Connection.cpp bot/IrcBot.cpp bot/IrcBot.h events/Delegate.h events/Event.h events/EventHandler.h events/EventDispatcher.h events/EventDispatcher.cpp logic/SimpleCommands.cpp logic/SimpleCommands.h events/ChatEvent.h StringLib.h events/IDelegate.h)
+add_executable(IrcBot ${SOURCE_FILES} networking/Connection.h tools/PropertiesReader.h tools/PropertiesReader.cpp networking/Connection.cpp bot/IrcBot.cpp bot/IrcBot.h events/Delegate.h events/Event.h events/EventHandler.h events/EventDispatcher.h events/EventDispatcher.cpp logic/SimpleCommands.cpp logic/SimpleCommands.h events/ChatEvent.h StringLib.h events/IDelegate.h events/RegisteredDelegate.cpp events/RegisteredDelegate.h)

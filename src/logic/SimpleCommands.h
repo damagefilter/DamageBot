@@ -23,9 +23,8 @@ public:
     SimpleCommands(IrcBot* _bot);
     void handleChat(ChatEvent* event);
 
-    std::string getEventName() {
-        return ChatEvent().getName();
-    }
+    virtual std::string getEventName();
+    virtual std::string getIdentifier();
 
 private:
     IrcBot* bot;

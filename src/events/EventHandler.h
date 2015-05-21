@@ -20,6 +20,8 @@ public:
      * Get the name of the event this handler is listening to
      */
     virtual std::string getEventName() = 0;
+
+    virtual std::string getIdentifier() = 0;
 };
 
 #endif //IRCBOT_EVENTHANDLER_H

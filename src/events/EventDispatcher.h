@@ -12,37 +12,42 @@
 #include "Event.h"
 #include "EventHandler.h"
 #include "Delegate.h"
+#include "RegisteredDelegate.h"
 
-typedef std::vector<IDelegate*> DelegateList;
+class RegisteredDelegate;
+class EventHandler;
 
+typedef std::vector<RegisteredDelegate*> DelegateList;
 class EventDispatcher {
+private:
+    std::map<std::string, DelegateList> registeredListeners;
+
 public:
     static EventDispatcher* instance() {
         static EventDispatcher* $ = new EventDispatcher();
         return $;
     }
+
     /**
      * Register a delegate to the event dispatcher,
      * this will then receive messages from the bot.
      *
      * @param delegate the delegate to register
      */
-    void registerDelegate(IDelegate* delegate, const std::string &type);
+    void registerDelegate(EventHandler *handler, IDelegate *delegate);
 
-    // TODO: In all likelyhood, we have no pointer or reference to the registered delegate,
-    // So there should be something like a name lookup, this requires some refactoring
-//    /**
-//     * Unregister a delegate from the dispatcher.
-//     * After unregistering, make sure to free the memory pointed-to
-//     *
-//     * @param delegate
-//     */
-//    void unregisterDelegate(IDelegate* delegate, const std::string &type);
+    /**
+     * Unregister all delegates of the given event handler and event type.
+     */
+    void unregisterDelegate(EventHandler* handler, const std::string &type);
+
+    /**
+     * Unregister ALL delegates of the given event handler.
+     */
+    void unregisterDelegate(EventHandler* handler);
 
 
     void call(Event* event);
-private:
-    std::map<std::string, DelegateList> registeredListeners;
 };
 
 #endif //IRCBOT_EVENTDISPATCHER_H

@@ -74,8 +74,17 @@ public:
     template<typename Type, typename Argument>
     void addHandler(EventHandler *handler, void (Type::*method)(Argument* arg)) {
         auto delegate = Delegate<Type, Argument>::create(static_cast<Type&>(*handler), method);
-        EventDispatcher::instance()->registerDelegate(delegate, handler->getEventName());
+        EventDispatcher::instance()->registerDelegate(handler, delegate);
         this->handlerList.push_back(handler);
+    }
+
+    void removeHandler(const std::string &name, const std::string &type) {
+        for (auto handler : this->handlerList) {
+            if (handler->getIdentifier() == name) {
+                EventDispatcher::instance()->unregisterDelegate(handler, type);
+                break;
+            }
+        }
     }
 
     std::string& getNick() {

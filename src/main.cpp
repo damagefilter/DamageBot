@@ -31,9 +31,5 @@ int main(int argc, char** argv) {
     catch (out_of_range exception) {
         cout << exception.what();
     }
-
-//    system("pause");
-    char derp[10];
-    cin >> derp;
     return 0;
 }

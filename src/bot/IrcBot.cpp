@@ -51,7 +51,7 @@ void IrcBot::sendPrivateMessage(const std::string& message, const std::string& u
 void IrcBot::processMessage() {
     // Empty the string
     this->con->readLine(messageBuffer);
-    std::cout << messageBuffer << std::endl;
+    std::cout << "INCOMING: " << messageBuffer << std::endl;
     if(!doPong(messageBuffer)) {
         ChatEvent event(messageBuffer);
         EventDispatcher::instance()->call(&event);
