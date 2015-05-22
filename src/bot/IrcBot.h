@@ -20,7 +20,7 @@ public:
     /**
      * Initialise the bot, connect to the server that was passed in the constructor
      */
-    void init();
+    bool init();
 
     /**
      * Sends a message to the currently active channel

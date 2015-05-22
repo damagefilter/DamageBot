@@ -11,8 +11,7 @@ int main(int argc, char** argv) {
     cout << "Starting Bot ..." << endl;
     PropertiesReader props("bot.cfg");
     IrcBot bot(props.getString("nick"), props.getString("user"), props.getString("owner"));
-    bot.init();
-    if(!Connection::instance()->isConnected()) {
+    if(!bot.init()) {
         cout << "Connection failed, sry bro!";
         return 1;
     }

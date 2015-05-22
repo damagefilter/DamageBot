@@ -11,8 +11,9 @@ IrcBot::IrcBot(const std::string &_nick, const std::string &_user, const std::st
     this->motdFinished = false;
 }
 
-void IrcBot::init() {
+bool IrcBot::init() {
     this->con = Connection::instance();
+    return this->con->isConnected();
 }
 
 bool IrcBot::doPong(const std::string& message) {
