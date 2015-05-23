@@ -16,6 +16,8 @@ Connection::Connection(const std::string &horst, int port) {
 
 }
 
+Connection::Connection(const Connection &o) {}
+
 int Connection::makeConnection() {
     // So much ifdef madness .... :D
 #ifdef _WIN32

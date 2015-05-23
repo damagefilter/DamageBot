@@ -77,7 +77,6 @@ public:
 private:
     Connection(const std::string &host, int port);
     Connection(const Connection& c);
-    void operator=(const Connection& c);
 
     bool _isConnected;
 };

@@ -11,16 +11,28 @@
 class PropertiesFile {
 private:
     std::map<std::string, std::string> data;
+    std::string fileName;
+
 public:
-    PropertiesFile(const std::string &filename);
+    PropertiesFile(const std::string filename);
 
     int getInteger(const std::string &key);
+
+    int getInteget(const std::string &key, const int def);
+
     float getFloat(const std::string &key);
+
+    float getFloat(const std::string &key, const float def);
+
     std::string getString(const std::string &key);
 
-    bool containsKey(const std::string &key) {
-        return this->data.find(key) != data.end();
-    }
+    std::string getString(const std::string &key, const std::string &def);
+
+    bool containsKey(const std::string &key);
+
+    void save();
+
+    static bool fileExists(const std::string &path);
 };
 
 #endif //IRCBOT_PROPERTIESREADER_H
