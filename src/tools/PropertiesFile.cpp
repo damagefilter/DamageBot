@@ -5,11 +5,10 @@
 #include <fstream>
 #include <iostream>
 #include <list>
-#include <stdlib.h>
 
-#include "PropertiesReader.h"
+#include "PropertiesFile.h"
 
-PropertiesReader::PropertiesReader(const std::string &fileName) {
+PropertiesFile::PropertiesFile(const std::string &fileName) {
     std::ifstream file(fileName);
     std::string line;
     while(std::getline(file, line)) {
@@ -21,21 +20,21 @@ PropertiesReader::PropertiesReader(const std::string &fileName) {
     }
 }
 
-int PropertiesReader::getInteger(const std::string &key) {
+int PropertiesFile::getInteger(const std::string &key) {
     if(!containsKey(key)) {
         return 0;
     }
     return atoi(this->data[key].c_str());
 }
 
-float PropertiesReader::getFloat(const std::string &key) {
+float PropertiesFile::getFloat(const std::string &key) {
     if(!containsKey(key)) {
         return 0.0f;
     }
     return (float)atof(this->data[key].c_str());
 }
 
-std::string PropertiesReader::getString(const std::string &key) {
+std::string PropertiesFile::getString(const std::string &key) {
     if(!containsKey(key)) {
         return "key not found";
     }

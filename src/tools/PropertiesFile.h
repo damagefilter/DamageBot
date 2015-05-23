@@ -8,9 +8,11 @@
 #include <string>
 #include <map>
 
-class PropertiesReader {
+class PropertiesFile {
+private:
+    std::map<std::string, std::string> data;
 public:
-    PropertiesReader(const std::string &filename);
+    PropertiesFile(const std::string &filename);
 
     int getInteger(const std::string &key);
     float getFloat(const std::string &key);
@@ -19,8 +21,6 @@ public:
     bool containsKey(const std::string &key) {
         return this->data.find(key) != data.end();
     }
-private:
-    std::map<std::string, std::string> data;
 };
 
 #endif //IRCBOT_PROPERTIESREADER_H

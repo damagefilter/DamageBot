@@ -17,7 +17,7 @@
 #include <unistd.h>
 #endif
 
-#include "../tools/PropertiesReader.h"
+#include "../tools/PropertiesFile.h"
 #include <vector>
 
 
@@ -39,7 +39,7 @@ public:
      * @return the connection instance
      */
     static Connection* instance() {
-        static PropertiesReader reader("bot.cfg");
+        static PropertiesFile reader("bot.cfg");
         static Connection* $ = new Connection(reader.getString("host"), reader.getInteger("port"));
         return $;
     }

@@ -1,7 +1,7 @@
 #include <cstdlib>
 #include <map>
 #include <iostream>
-#include "tools/PropertiesReader.h"
+#include "tools/PropertiesFile.h"
 #include "bot/IrcBot.h"
 #include "logic/commands/CommandProcessor.h"
 
@@ -9,7 +9,7 @@ using namespace std;
 
 int main(int argc, char** argv) {
     cout << "Starting Bot ..." << endl;
-    PropertiesReader props("bot.cfg");
+    PropertiesFile props("bot.cfg");
     IrcBot bot(props.getString("nick"), props.getString("user"), props.getString("owner"));
     if(!bot.init()) {
         cout << "Connection failed, sry bro!";
