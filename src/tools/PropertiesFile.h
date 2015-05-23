@@ -18,7 +18,7 @@ public:
 
     int getInteger(const std::string &key);
 
-    int getInteget(const std::string &key, const int def);
+    int getInteger(const std::string &key, const int def);
 
     float getFloat(const std::string &key);
 

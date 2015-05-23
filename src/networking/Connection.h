@@ -18,6 +18,7 @@
 #endif
 
 #include "../tools/PropertiesFile.h"
+#include "../BotConfig.h"
 #include <vector>
 
 
@@ -39,8 +40,8 @@ public:
      * @return the connection instance
      */
     static Connection* instance() {
-        static PropertiesFile reader("bot.cfg");
-        static Connection* $ = new Connection(reader.getString("host"), reader.getInteger("port"));
+        static BotConfig* c = BotConfig::instance();
+        static Connection* $ = new Connection(c->getIrcServer(), c->getIrcServerPort());
         return $;
     }
     /**

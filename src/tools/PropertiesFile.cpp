@@ -44,7 +44,7 @@ std::string PropertiesFile::getString(const std::string &key) {
     return this->data[key].c_str();
 }
 
-int PropertiesFile::getInteget(const std::string &key, const int def) {
+int PropertiesFile::getInteger(const std::string &key, const int def) {
     if (!this->containsKey(key)) {
         this->data[key] = std::to_string(def);
         return def;

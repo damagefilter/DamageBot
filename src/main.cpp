@@ -1,7 +1,6 @@
 #include <cstdlib>
 #include <map>
 #include <iostream>
-#include "tools/PropertiesFile.h"
 #include "bot/IrcBot.h"
 #include "logic/commands/CommandProcessor.h"
 
@@ -9,8 +8,8 @@ using namespace std;
 
 int main(int argc, char** argv) {
     cout << "Starting Bot ..." << endl;
-    PropertiesFile props("bot.cfg");
-    IrcBot bot(props.getString("nick"), props.getString("user"), props.getString("owner"));
+    BotConfig* cfg = BotConfig::instance();
+    IrcBot bot(cfg->getBotNick(), cfg->getBotUserName(), cfg->getBotOwner());
     if(!bot.init()) {
         cout << "Connection failed, sry bro!";
         return 1;
@@ -18,8 +17,8 @@ int main(int argc, char** argv) {
     cout << "Connected successfully" << endl;
     cout << "Registering events ..." << endl;
     bot.addHandler<CommandProcessor, ChatEvent>(new CommandProcessor(&bot), &CommandProcessor::handleChat);
-    bot.login(props.getString("defaultChannel"), "");
-    cout << "Logged in as " << props.getString("nick") << endl;
+    bot.login(cfg->getDefaultChannel(), "");
+    cout << "Logged in as " << cfg->getBotNick() << endl;
 
     cout << "Start processing messages ..." << endl;
     try {
